@@ -18,6 +18,12 @@
     <!-- Custom styles for this template-->
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
     
+    <style>
+    #accordionSidebar {
+        background-color: #f15c9a !important;
+        background-image: none !important;
+    }
+    </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.26.25/sweetalert2.all.min.js"></script>
 
     @stack('styles')

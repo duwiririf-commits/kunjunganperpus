@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Pengunjung extends Model
 {
+    use HasFactory;
+
     protected $table = 'pengunjung';
 
     protected $primaryKey = 'id_pengunjung';
@@ -15,9 +18,4 @@ class Pengunjung extends Model
         'nama',
         'kelas_jabatan',
     ];
-
-    public function kunjungan()
-    {
-        return $this->hasMany(Kunjungan::class, 'id_pengunjung', 'id_pengunjung');
-    }
 }

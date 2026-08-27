@@ -9,9 +9,9 @@ class PengunjungFactory extends Factory
     public function definition(): array
     {
         return [
-            'nis' => fake()->unique()->numerify('########'),
-            'nama' => fake()->name(),
-            'kelas' => fake()->randomElement([
+            'nisn_nip' => $this->faker->numerify('########'),
+            'nama' => $this->faker->name(),
+            'kelas_jabatan' => $this->faker->randomElement([
                 'X PPLG 1',
                 'X PPLG 2',
                 'X PPLG 3',

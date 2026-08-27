@@ -10,11 +10,9 @@ class KunjunganFactory extends Factory
     public function definition(): array
     {
         return [
-            'pengunjung_id' => Pengunjung::factory(),
-
-            'tanggal_kunjungan' => fake()->date(),
-
-            'keperluan' => fake()->sentence(),
+            'id_pengunjung' => Pengunjung::inRandomOrder()->value('id_pengunjung'),
+            'tanggal_kunjungan' => $this->faker->date(),
+            'keperluan' => $this->faker->sentence(),
         ];
     }
 }
