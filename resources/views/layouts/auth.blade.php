@@ -22,7 +22,7 @@
 
    <style>
     .bg-gradient-pink {
-        background-color: #f15c9a;
+        background-color: #e479a5;
         min-height: 100vh;
     }
     </style>

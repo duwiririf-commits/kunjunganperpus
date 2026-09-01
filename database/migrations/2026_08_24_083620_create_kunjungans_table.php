@@ -10,12 +10,12 @@ return new class extends Migration
     {
         Schema::create('kunjungan', function (Blueprint $table) {
             $table->id('id_kunjungan');
-            $table->unsignedBigInteger('pengunjung_id');
+            $table->unsignedBigInteger('id_pengunjung');
             $table->date('tanggal_kunjungan');
             $table->text('keperluan');
             $table->timestamps();
 
-            $table->foreign('pengunjung_id')
+            $table->foreign('id_pengunjung')
                   ->references('id_pengunjung')
                   ->on('pengunjung')
                   ->onDelete('cascade');

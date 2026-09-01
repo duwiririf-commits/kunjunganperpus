@@ -4,32 +4,29 @@ namespace App\Http\Controllers;
 
 use App\Models\Pengunjung;
 use App\Models\Kunjungan;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class KunjunganController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $kunjungan = Kunjungan::all();
+        // Ambil data kunjungan hanya untuk hari ini
+        $kunjungan = Kunjungan::with('pengunjung')
+            ->whereDate('tanggal_kunjungan', Carbon::today())
+            ->orderBy('tanggal_kunjungan', 'desc')
+            ->get();
+
         return view('pages.kunjungan.index', compact('kunjungan'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-         return view('pages.kunjungan.create');
+        return view('pages.kunjungan.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
-    {   
+    {
         $request->validate([
             'nisn_nip' => 'required',
             'nama' => 'required',
@@ -50,44 +47,41 @@ class KunjunganController extends Controller
             'keperluan' => $request->keperluan,
         ]);
 
-        return redirect()->route('kunjungan.index')
-            ->with('success', 'Data kunjungan berhasil disimpan.');
+       return redirect()
+        ->route('home')
+        ->with('success', 'Data kunjungan berhasil disimpan.');
     }
-    
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+
+    public function show($id)
     {
-        $kunjungan = Kunjungan::findOrFail($id);
+        $id = decrypt($id);
+
+        $kunjungan = Kunjungan::with('pengunjung')
+            ->where('id_kunjungan', $id)
+            ->firstOrFail();
+
         return view('pages.kunjungan.show', compact('kunjungan'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-    $kunjungan = Kunjungan::findOrFail($id);
-    $kunjungan->delete();
+        $kunjungan = Kunjungan::findOrFail($id);
 
-    return redirect()->route('kunjungan.index')
-                     ->with('success', 'Data kunjungan berhasil dihapus.');
+        $kunjungan->delete();
+
+        return redirect()
+            ->route('admin.kunjungan.index')
+            ->with('success', 'Berhasil Menghapus data dengan ID:' . $id);    
+
     }
 }

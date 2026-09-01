@@ -4,296 +4,589 @@
 
 @section('content')
 
+<style>
+    /* ==================================================
+       DASHBOARD
+    ================================================== */
+
+    body {
+        background: #fff7fa !important;
+    }
+
+    #content-wrapper {
+        background: #fff7fa !important;
+    }
+
+
+    /* ==================================================
+       JUDUL DASHBOARD
+    ================================================== */
+
+    .dashboard-title {
+        color: #000 !important;
+        font-weight: 700 !important;
+    }
+
+
+    /* ==================================================
+       TANGGAL
+    ================================================== */
+
+    #currentDateDisplay {
+        background: #d18eae !important;
+        color: #000 !important;
+
+        border: none !important;
+        border-radius: 5px !important;
+
+        font-size: 14px !important;
+        font-weight: 600 !important;
+    }
+
+
+    /* ==================================================
+       CARD STATISTIK
+    ================================================== */
+
+    .dashboard-card {
+        background: #ffffff !important;
+
+        border: none !important;
+        border-left: 5px solid #d18eae !important;
+
+        border-radius: 6px !important;
+
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+
+        transition: all 0.2s ease !important;
+    }
+
+
+    .dashboard-card:hover {
+        transform: translateY(-2px);
+
+        box-shadow: 0 5px 12px rgba(0, 0, 0, 0.12) !important;
+    }
+
+
+    /* ==================================================
+       JUDUL CARD
+    ================================================== */
+
+    .dashboard-card-title {
+        color: #c56f95 !important;
+
+        font-size: 12px !important;
+        font-weight: 700 !important;
+
+        text-transform: uppercase;
+    }
+
+
+    /* ==================================================
+       ANGKA
+    ================================================== */
+
+    .dashboard-card-number {
+        color: #000 !important;
+
+        font-size: 20px !important;
+        font-weight: 700 !important;
+    }
+
+
+    /* ==================================================
+       ICON CARD
+    ================================================== */
+
+    .dashboard-card-icon {
+        color: #d18eae !important;
+
+        font-size: 30px !important;
+    }
+
+
+    /* ==================================================
+       CARD GRAFIK
+    ================================================== */
+
+    .chart-card {
+        background: #ffffff !important;
+
+        border: none !important;
+
+        border-radius: 6px !important;
+
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+    }
+
+
+    /* ==================================================
+       HEADER GRAFIK
+    ================================================== */
+
+    .chart-card .card-header {
+        background: #dfb4c8 !important;
+
+        border-bottom: 1px solid rgba(255, 255, 255, 0.8) !important;
+
+        padding: 15px 20px !important;
+    }
+
+
+    .chart-card .card-header h6 {
+        color: #000 !important;
+
+        font-weight: 700 !important;
+    }
+
+
+    .chart-card .card-header i {
+        color: #000 !important;
+    }
+
+
+    /* ==================================================
+       KETERANGAN GRAFIK
+    ================================================== */
+
+    .chart-card .text-muted {
+        color: #555 !important;
+    }
+
+
+    /* ==================================================
+       HR
+    ================================================== */
+
+    .chart-card hr {
+        border-top: 1px solid #dfb4c8 !important;
+    }
+</style>
+
+
 <div class="container-fluid">
 
-    <!-- Judul -->
+    <!-- ==================================================
+         JUDUL
+    ================================================== -->
+
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Kunjungan Perpustakaan</h1>
-        <span class="badge badge-primary p-2" id="currentDateDisplay"></span>
+
+        <h1 class="h3 mb-0 dashboard-title">
+            Kunjungan Perpustakaan
+        </h1>
+
+        <span class="badge p-2"
+              id="currentDateDisplay">
+        </span>
+
     </div>
 
-    <!-- 2 Card Statistik -->
+
+    <!-- ==================================================
+         CARD STATISTIK
+    ================================================== -->
+
     <div class="row">
+
+
+        <!-- TOTAL HARI INI -->
+
         <div class="col-xl-6 col-md-6 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2" onclick="alert('Total Kunjungan Hari Ini: 20 Orang')" style="cursor: pointer;">
+
+            <div class="card dashboard-card h-100 py-2"
+                 onclick="alert('Total Kunjungan Hari Ini: {{ $totalHariIni }} Orang')"
+                 style="cursor: pointer;">
+
                 <div class="card-body">
+
                     <div class="row no-gutters align-items-center">
+
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+
+                            <div class="dashboard-card-title mb-1">
                                 Total Kunjungan Hari Ini
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                20 Orang
+
+                            <div class="dashboard-card-number">
+                                {{ $totalHariIni }} Orang
                             </div>
+
                         </div>
+
+
                         <div class="col-auto">
-                            <i class="fas fa-users fa-2x text-gray-300"></i>
+
+                            <i class="fas fa-users dashboard-card-icon"></i>
+
                         </div>
+
                     </div>
+
                 </div>
+
             </div>
+
         </div>
+
+
+        <!-- TOTAL MINGGU INI -->
 
         <div class="col-xl-6 col-md-6 mb-4">
-            <div class="card border-left-success shadow h-100 py-2" onclick="alert('Total Kunjungan Bulan Ini: 95 Orang')" style="cursor: pointer;">
+
+            <div class="card dashboard-card h-100 py-2"
+                 onclick="alert('Total Kunjungan Minggu Ini: {{ $totalMingguIni }} Orang')"
+                 style="cursor: pointer;">
+
                 <div class="card-body">
+
                     <div class="row no-gutters align-items-center">
+
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                Total Kunjungan Bulan Ini
+
+                            <div class="dashboard-card-title mb-1">
+                                Total Kunjungan Minggu Ini
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                95 Orang
+
+                            <div class="dashboard-card-number">
+                                {{ $totalMingguIni }} Orang
                             </div>
+
                         </div>
+
+
                         <div class="col-auto">
-                            <i class="fas fa-calendar-alt fa-2x text-gray-300"></i>
+
+                            <i class="fas fa-calendar-week dashboard-card-icon"></i>
+
                         </div>
+
                     </div>
+
                 </div>
+
             </div>
+
         </div>
+
     </div>
 
-    <!-- Menu Data Kunjungan -->
-    <div class="row">
-        <div class="col-lg-12 mb-4">
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Data Kunjungan</h6>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- Grafik -->
+    <!-- ==================================================
+         GRAFIK
+    ================================================== -->
+
     <div class="row">
+
         <div class="col-lg-12 mb-4">
-            <div class="card shadow mb-4">
+
+            <div class="card chart-card shadow mb-4">
+
+
+                <!-- HEADER GRAFIK -->
+
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">
-                        <i class="fas fa-chart-bar mr-2"></i> Grafik Kunjungan
+
+                    <h6 class="m-0">
+
+                        <i class="fas fa-chart-line mr-2"></i>
+
+                        Grafik Kunjungan Minggu Ini
+
                     </h6>
+
                 </div>
+
+
+                <!-- BODY GRAFIK -->
+
                 <div class="card-body">
-                    
-                    <!-- Tombol Ganti Minggu (Lebih Banyak Pilihan) -->
-                    <div class="mb-3">
-                        <button class="btn btn-sm btn-outline-secondary" onclick="gantiMinggu(-3)">
-                            <i class="fas fa-chevron-left"></i> 3 Minggu Lalu
-                        </button>
-                        <button class="btn btn-sm btn-outline-secondary" onclick="gantiMinggu(-2)">
-                            2 Minggu Lalu
-                        </button>
-                        <button class="btn btn-sm btn-outline-secondary" onclick="gantiMinggu(-1)">
-                            Minggu Lalu
-                        </button>
-                        <button class="btn btn-sm btn-primary" onclick="gantiMinggu(0)">
-                            <i class="fas fa-calendar-week"></i> Minggu Ini
-                        </button>
-                        <button class="btn btn-sm btn-outline-secondary" onclick="gantiMinggu(1)">
-                            Minggu Depan
-                        </button>
-                        <span class="ml-2 text-muted" id="labelMinggu">Minggu Ini (23-27 Agustus 2026)</span>
-                    </div>
 
-                    <!-- Canvas Chart -->
+
                     <div style="height: 280px;">
+
                         <canvas id="chartKunjungan"></canvas>
+
                     </div>
 
-                    <!-- Keterangan -->
+
                     <hr>
+
+
+                    <!-- KETERANGAN -->
+
                     <div class="row">
+
                         <div class="col-md-6">
+
                             <small class="text-muted">
-                                <strong>X-axis:</strong> Senin, Selasa, Rabu, Kamis, Jumat
+
+                                <strong>X-axis:</strong>
+
+                                Senin, Selasa, Rabu, Kamis, Jumat, Sabtu, Minggu
+
                             </small>
+
                         </div>
+
+
                         <div class="col-md-6 text-md-right">
+
                             <small class="text-muted">
-                                <strong>Y-axis:</strong> 0, 5, 10, 15, 20
+
+                                <strong>Y-axis:</strong>
+
+                                Jumlah Pengunjung
+
                             </small>
+
                         </div>
+
                     </div>
+
+
                 </div>
+
             </div>
+
         </div>
+
     </div>
 
 </div>
 
+
 @endsection
 
+
 @push('scripts')
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <script>
-    // =============================================
-    // DATA KUNJUNGAN (5 MINGGU)
-    // =============================================
-    
-    var dataKunjungan = {
-        // Minggu Ini (Agustus 2026)
-        0: {
-            label: 'Minggu Ini (23-27 Agustus 2026)',
-            hari: ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat'],
-            jumlah: [12, 19, 15, 17, 20]
-        },
-        // 1 Minggu Lalu
-        '-1': {
-            label: 'Minggu Lalu (16-20 Agustus 2026)',
-            hari: ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat'],
-            jumlah: [8, 14, 11, 16, 13]
-        },
-        // 2 Minggu Lalu
-        '-2': {
-            label: '2 Minggu Lalu (9-13 Agustus 2026)',
-            hari: ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat'],
-            jumlah: [10, 7, 9, 12, 8]
-        },
-        // 3 Minggu Lalu
-        '-3': {
-            label: '3 Minggu Lalu (2-6 Agustus 2026)',
-            hari: ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat'],
-            jumlah: [6, 11, 8, 10, 9]
-        },
-        // Minggu Depan
-        '1': {
-            label: 'Minggu Depan (30-3 September 2026)',
-            hari: ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat'],
-            jumlah: [18, 22, 20, 25, 23]
-        }
-    };
 
-    // =============================================
-    // VARIABEL GLOBAL
-    // =============================================
-    
-    var chart = null;
-    var mingguSekarang = 0;
+    /* ==================================================
+       TANGGAL DAN JAM
+    ================================================== */
 
-    // Warna untuk setiap hari
-    var warna = [
-        'rgba(78, 115, 223, 0.7)',  // Senin - Biru
-        'rgba(28, 200, 138, 0.7)',  // Selasa - Hijau
-        'rgba(54, 185, 204, 0.7)',  // Rabu - Cyan
-        'rgba(246, 194, 62, 0.7)',  // Kamis - Kuning
-        'rgba(231, 74, 59, 0.7)'    // Jumat - Merah
-    ];
+    function tampilkanTanggal() {
 
-    var borderWarna = [
-        '#4e73df', '#1cc88a', '#36b9cc', '#f6c23e', '#e74a3b'
-    ];
+        var now = new Date();
 
-    // =============================================
-    // FUNGSI UTAMA
-    // =============================================
-    
-    $(document).ready(function() {
+        var hari = [
+            'Minggu',
+            'Senin',
+            'Selasa',
+            'Rabu',
+            'Kamis',
+            'Jumat',
+            'Sabtu'
+        ];
+
+        var bulan = [
+            'Januari',
+            'Februari',
+            'Maret',
+            'April',
+            'Mei',
+            'Juni',
+            'Juli',
+            'Agustus',
+            'September',
+            'Oktober',
+            'November',
+            'Desember'
+        ];
+
+
+        var tanggal =
+            hari[now.getDay()] +
+            ', ' +
+            now.getDate() +
+            ' ' +
+            bulan[now.getMonth()] +
+            ' ' +
+            now.getFullYear();
+
+
+        var jam =
+            now.getHours().toString().padStart(2, '0') +
+            ':' +
+            now.getMinutes().toString().padStart(2, '0');
+
+
+        document.getElementById('currentDateDisplay').textContent =
+            tanggal + ' | ' + jam + ' WIB';
+
+    }
+
+
+    /* ==================================================
+       GRAFIK
+    ================================================== */
+
+    $(document).ready(function () {
+
         tampilkanTanggal();
-        buatChart(0);
+
+
+        var ctx = document
+            .getElementById('chartKunjungan')
+            .getContext('2d');
+
+
+        new Chart(ctx, {
+
+            type: 'line',
+
+            data: {
+
+                labels: @json($labels),
+
+                datasets: [{
+
+                    label: 'Jumlah Kunjungan',
+
+                    data: @json($dataGrafik),
+
+
+                    /* WARNA PINK */
+
+                    borderColor: '#d18eae',
+
+                    backgroundColor: 'rgba(223, 180, 200, 0.25)',
+
+                    borderWidth: 3,
+
+                    tension: 0.3,
+
+                    fill: true,
+
+
+                    /* TITIK GRAFIK */
+
+                    pointBackgroundColor: '#d18eae',
+
+                    pointBorderColor: '#ffffff',
+
+                    pointBorderWidth: 2,
+
+                    pointRadius: 7,
+
+                    pointHoverRadius: 10,
+
+                    pointHoverBorderWidth: 3
+
+                }]
+
+            },
+
+
+            options: {
+
+                responsive: true,
+
+                maintainAspectRatio: false,
+
+
+                scales: {
+
+                    y: {
+
+                        beginAtZero: true,
+
+                        ticks: {
+
+                            stepSize: 1
+
+                        },
+
+                        grid: {
+
+                            color: 'rgba(0, 0, 0, 0.05)'
+
+                        }
+
+                    },
+
+
+                    x: {
+
+                        grid: {
+
+                            display: false
+
+                        }
+
+                    }
+
+                },
+
+
+                plugins: {
+
+                    legend: {
+
+                        display: false
+
+                    },
+
+
+                    tooltip: {
+
+                        backgroundColor: '#d18eae',
+
+                        titleFont: {
+
+                            size: 14,
+
+                            weight: 'bold'
+
+                        },
+
+                        bodyFont: {
+
+                            size: 13
+
+                        },
+
+                        padding: 12,
+
+                        cornerRadius: 8,
+
+                        displayColors: false,
+
+
+                        callbacks: {
+
+                            label: function (context) {
+
+                                return context.parsed.y + ' Orang';
+
+                            }
+
+                        }
+
+                    }
+
+                },
+
+
+                animation: {
+
+                    duration: 1000,
+
+                    easing: 'easeOutQuart'
+
+                }
+
+            }
+
+        });
+
     });
 
-    // =============================================
-    // FUNGSI TANGGAL
-    // =============================================
-    
-    function tampilkanTanggal() {
-        var now = new Date();
-        var hari = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
-        var bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 
-                     'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-        
-        var tanggal = hari[now.getDay()] + ', ' + now.getDate() + ' ' + bulan[now.getMonth()] + ' ' + now.getFullYear();
-        var jam = now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0');
-        
-        document.getElementById('currentDateDisplay').textContent = tanggal + ' | ' + jam + ' WIB';
-    }
-
-    // =============================================
-    // FUNGSI CHART
-    // =============================================
-    
-    function buatChart(offset) {
-        mingguSekarang = offset;
-        var key = offset.toString();
-        var data = dataKunjungan[key];
-        
-        // Kalau data tidak ada, pakai minggu ini
-        if (!data) {
-            data = dataKunjungan['0'];
-            document.getElementById('labelMinggu').textContent = '⚠️ Data tidak tersedia, menampilkan minggu ini';
-        } else {
-            document.getElementById('labelMinggu').textContent = data.label;
-        }
-
-        // Hapus chart lama
-        if (chart) {
-            chart.destroy();
-        }
-
-        // Buat chart baru
-        var ctx = document.getElementById('chartKunjungan').getContext('2d');
-        
-        chart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: data.hari,
-                datasets: [{
-                    label: 'Jumlah Kunjungan',
-                    data: data.jumlah,
-                    backgroundColor: warna,
-                    borderColor: borderWarna,
-                    borderWidth: 2,
-                    borderRadius: 4
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        max: 25,
-                        ticks: {
-                            stepSize: 5
-                        }
-                    }
-                },
-                plugins: {
-                    legend: {
-                        display: false
-                    }
-                }
-            }
-        });
-    }
-
-    // =============================================
-    // FUNGSI GANTI MINGGU
-    // =============================================
-    
-    function gantiMinggu(nilai) {
-        buatChart(nilai);
-        
-        // Kasih tahu user minggu apa yang ditampilkan
-        var pesan = '';
-        if (nilai === -3) pesan = 'Menampilkan 3 minggu lalu';
-        else if (nilai === -2) pesan = 'Menampilkan 2 minggu lalu';
-        else if (nilai === -1) pesan = 'Menampilkan minggu lalu';
-        else if (nilai === 0) pesan = 'Menampilkan minggu ini';
-        else if (nilai === 1) pesan = 'Menampilkan minggu depan';
-        
-        // Notifikasi sederhana
-        var notif = document.createElement('div');
-        notif.className = 'alert alert-info alert-dismissible fade show position-fixed';
-        notif.style.cssText = 'top: 20px; right: 20px; z-index: 9999;';
-        notif.innerHTML = pesan + ' <button type="button" class="close" data-dismiss="alert">&times;</button>';
-        document.body.appendChild(notif);
-        
-        setTimeout(function() {
-            if (notif.parentNode) notif.remove();
-        }, 2000);
-    }
 </script>
+
 @endpush

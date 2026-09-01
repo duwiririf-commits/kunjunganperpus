@@ -1,368 +1,866 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="id">
 
-@section('title', 'Dashboard')
+<head>
 
-@section('content')
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<div class="container-fluid">
+    <title>Kunjungan Perpustakaan</title>
 
-    <!-- Judul -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Kunjungan Perpustakaan</h1>
-        <span class="badge badge-primary p-2" id="tampilTanggal"></span>
-    </div>
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-    <!-- 2 Card Statistik -->
-    <div class="row">
-        <div class="col-xl-6 col-md-6 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2" onclick="detailHari()" style="cursor: pointer;">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                Total Kunjungan Hari Ini
-                            </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                20 Orang
-                            </div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-users fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <style>
 
-        <div class="col-xl-6 col-md-6 mb-4">
-            <div class="card border-left-success shadow h-100 py-2" onclick="detailBulan()" style="cursor: pointer;">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                Total Kunjungan Bulan Ini
-                            </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                95 Orang
-                            </div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-calendar-alt fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+        /* ==================================================
+           RESET
+        ================================================== */
 
-    <!-- Menu Data Kunjungan -->
-    <div class="row">
-        <div class="col-lg-12 mb-4">
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Data Kunjungan</h6>
-                </div>
-            </div>
-        </div>
-    </div>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <!-- Grafik -->
-    <div class="row">
-        <div class="col-lg-12 mb-4">
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">
-                        <i class="fas fa-chart-bar mr-2"></i> Grafik Kunjungan
-                    </h6>
-                </div>
-                <div class="card-body">
-                    
-                    <!-- Tombol Ganti Minggu -->
-                    <div class="mb-3">
-                        <button class="btn btn-sm btn-outline-secondary" onclick="gantiMinggu(-3)">
-                            3 Minggu Lalu
-                        </button>
-                        <button class="btn btn-sm btn-outline-secondary" onclick="gantiMinggu(-2)">
-                            2 Minggu Lalu
-                        </button>
-                        <button class="btn btn-sm btn-outline-secondary" onclick="gantiMinggu(-1)">
-                            Minggu Lalu
-                        </button>
-                        <button class="btn btn-sm btn-primary" onclick="gantiMinggu(0)">
-                            Minggu Ini
-                        </button>
-                        <button class="btn btn-sm btn-outline-secondary" onclick="gantiMinggu(1)">
-                            Minggu Depan
-                        </button>
-                        <span class="ml-2 text-muted" id="labelMinggu">Minggu Ini (23-27 Agustus 2026)</span>
-                    </div>
 
-                    <!-- Tempat Grafik -->
-                    <div style="height: 280px;">
-                        <canvas id="chartKunjungan"></canvas>
-                    </div>
+        /* ==================================================
+           BODY
+        ================================================== */
 
-                    <!-- Keterangan -->
-                    <hr>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <small class="text-muted">
-                                <strong>X-axis:</strong> Senin, Selasa, Rabu, Kamis, Jumat
-                            </small>
-                        </div>
-                        <div class="col-md-6 text-md-right">
-                            <small class="text-muted">
-                                <strong>Y-axis:</strong> 0, 5, 10, 15, 20
-                            </small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+        body {
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
 
-</div>
+            background-color: #caa9b7;
 
-<!-- CSS Sederhana -->
-<style>
-    /* Efek saat kursor di atas card */
-    .card {
-        transition: 0.3s;
-    }
-    .card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-    }
-    
-    /* Efek saat tombol diklik */
-    .btn:active {
-        transform: scale(0.95);
-    }
-</style>
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-@endsection
 
-@push('scripts')
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-// ============================================
-// DATA KUNJUNGAN
-// ============================================
+        /* ==================================================
+           CONTAINER
+        ================================================== */
 
-// Data untuk 5 minggu
-var dataMinggu = {
-    0: {
-        label: 'Minggu Ini (23-27 Agustus 2026)',
-        hari: ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat'],
-        jumlah: [12, 19, 15, 17, 20]
-    },
-    '-1': {
-        label: 'Minggu Lalu (16-20 Agustus 2026)',
-        hari: ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat'],
-        jumlah: [8, 14, 11, 16, 13]
-    },
-    '-2': {
-        label: '2 Minggu Lalu (9-13 Agustus 2026)',
-        hari: ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat'],
-        jumlah: [10, 7, 9, 12, 8]
-    },
-    '-3': {
-        label: '3 Minggu Lalu (2-6 Agustus 2026)',
-        hari: ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat'],
-        jumlah: [6, 11, 8, 10, 9]
-    },
-    '1': {
-        label: 'Minggu Depan (30-3 September 2026)',
-        hari: ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat'],
-        jumlah: [18, 22, 20, 25, 23]
-    }
-};
+        .kunjungan-container {
+            width: 100%;
+            min-height: 100vh;
 
-// ============================================
-// VARIABEL
-// ============================================
+            background: #caa9b7;
 
-var grafik = null;
-var mingguAktif = 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
 
-// Warna untuk grafik
-var warnaGrafik = [
-    'rgba(78, 115, 223, 0.7)',
-    'rgba(28, 200, 138, 0.7)',
-    'rgba(54, 185, 204, 0.7)',
-    'rgba(246, 194, 62, 0.7)',
-    'rgba(231, 74, 59, 0.7)'
-];
+            padding: 35px;
+        }
 
-// ============================================
-// FUNGSI UTAMA
-// ============================================
 
-// Saat halaman dimuat
-$(document).ready(function() {
-    tampilkanTanggal();
-    buatGrafik(0);
-});
+        /* ==================================================
+           JUDUL
+        ================================================== */
 
-// ============================================
-// FUNGSI TANGGAL
-// ============================================
+        .title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
-function tampilkanTanggal() {
-    var sekarang = new Date();
-    var namaHari = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
-    var namaBulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 
-                     'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-    
-    var tanggal = namaHari[sekarang.getDay()] + ', ' + 
-                  sekarang.getDate() + ' ' + 
-                  namaBulan[sekarang.getMonth()] + ' ' + 
-                  sekarang.getFullYear();
-    
-    var jam = sekarang.getHours().toString().padStart(2, '0') + ':' + 
-              sekarang.getMinutes().toString().padStart(2, '0');
-    
-    document.getElementById('tampilTanggal').textContent = tanggal + ' | ' + jam + ' WIB';
-}
+            gap: 28px;
 
-// ============================================
-// FUNGSI GRAFIK
-// ============================================
+            margin-bottom: 20px;
+        }
 
-function buatGrafik(offset) {
-    mingguAktif = offset;
-    var key = offset.toString();
-    var data = dataMinggu[key];
-    
-    // Kalau data tidak ada, pakai minggu ini
-    if (!data) {
-        data = dataMinggu['0'];
-        document.getElementById('labelMinggu').textContent = '⚠️ Data tidak tersedia';
-    } else {
-        document.getElementById('labelMinggu').textContent = data.label;
-    }
 
-    // Hapus grafik lama
-    if (grafik) {
-        grafik.destroy();
-    }
+        .title h1 {
+            font-size: 30px;
+            font-weight: bold;
 
-    // Buat grafik baru
-    var ctx = document.getElementById('chartKunjungan').getContext('2d');
-    
-    grafik = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: data.hari,
-            datasets: [{
-                label: 'Jumlah Kunjungan',
-                data: data.jumlah,
-                backgroundColor: warnaGrafik,
-                borderColor: ['#4e73df', '#1cc88a', '#36b9cc', '#f6c23e', '#e74a3b'],
-                borderWidth: 2
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    max: 25,
-                    ticks: {
-                        stepSize: 5
-                    }
-                }
-            },
-            plugins: {
-                legend: {
-                    display: false
-                }
+            letter-spacing: 1px;
+
+            color: #202124;
+        }
+
+
+        .title i {
+            font-size: 60px;
+
+            color: #1d344b;
+        }
+
+
+        /* ==================================================
+           FORM BOX
+        ================================================== */
+
+        .form-box {
+            width: 560px;
+
+            background: #e5e1d4;
+
+            padding: 22px 65px;
+
+            border-radius: 20px;
+        }
+
+
+        /* ==================================================
+           FORM GROUP
+        ================================================== */
+
+        .form-group {
+            margin-bottom: 10px;
+        }
+
+
+        .form-group label {
+            display: block;
+
+            font-size: 20px;
+            font-weight: bold;
+
+            color: #25272b;
+
+            margin-bottom: 5px;
+        }
+
+
+        /* ==================================================
+           INPUT WRAPPER
+        ================================================== */
+
+        .input-wrapper {
+            position: relative;
+
+            width: 100%;
+        }
+
+
+        .input-wrapper i {
+            position: absolute;
+
+            left: 16px;
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            color: #d28ca8;
+
+            font-size: 20px;
+
+            z-index: 2;
+        }
+
+
+        /* ==================================================
+           INPUT
+        ================================================== */
+
+        .form-group input {
+            width: 100%;
+            height: 42px;
+
+            border: 1.5px solid #333;
+            border-radius: 12px;
+
+            background: #e4e2d8;
+
+            padding-left: 52px;
+            padding-right: 15px;
+
+            font-size: 14px;
+            font-weight: bold;
+
+            color: #25272b;
+
+            outline: none;
+
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+
+        .form-group input::placeholder {
+            color: #858990;
+
+            opacity: 1;
+        }
+
+
+        /* ==================================================
+           AUTOFILL
+        ================================================== */
+
+        .form-group input:-webkit-autofill,
+        .form-group input:-webkit-autofill:hover,
+        .form-group input:-webkit-autofill:focus,
+        .form-group input:-webkit-autofill:active {
+
+            -webkit-box-shadow:
+                0 0 0 1000px #e4e2d8 inset !important;
+
+            -webkit-text-fill-color: #25272b !important;
+
+            caret-color: #25272b;
+
+            transition: background-color 9999s ease-out 0s;
+        }
+
+
+        .form-group input:focus {
+            border-color: #c7839e;
+
+            background: #e4e2d8;
+        }
+
+
+        /* ==================================================
+           SELECT KELAS / JABATAN
+        ================================================== */
+
+        .form-group select {
+            width: 100%;
+            height: 42px;
+
+            border: 1.5px solid #333;
+            border-radius: 12px;
+
+            background: #e4e2d8;
+
+            padding-left: 52px;
+            padding-right: 35px;
+
+            font-size: 14px;
+            font-weight: bold;
+
+            color: #25272b;
+
+            outline: none;
+
+            cursor: pointer;
+
+            appearance: auto;
+        }
+
+
+        .form-group select:focus {
+            border-color: #c7839e;
+
+            background: #e4e2d8;
+        }
+
+
+        .form-group select option {
+            background: #e4e2d8;
+
+            color: #25272b;
+
+            font-weight: bold;
+        }
+
+
+        /* ==================================================
+           TOMBOL SUBMIT
+        ================================================== */
+
+        .btn-submit {
+            width: 100%;
+            height: 48px;
+
+            border: none;
+
+            border-radius: 15px;
+
+            background: #bd7894;
+
+            color: #202124;
+
+            font-size: 24px;
+            font-weight: bold;
+
+            letter-spacing: 1px;
+
+            cursor: pointer;
+
+            margin-top: 12px;
+
+            transition: 0.2s;
+        }
+
+
+        .btn-submit:hover {
+            background: #aa6682;
+
+            transform: scale(1.01);
+        }
+
+
+        /* ==================================================
+           NOTIFIKASI
+        ================================================== */
+
+        .success-message,
+        .error-message {
+            width: 100%;
+
+            padding: 14px 18px;
+
+            border-radius: 18px;
+
+            font-weight: 500;
+            font-size: 14px;
+
+            margin-bottom: 22px;
+
+            background: #f8f4f6;
+
+            border-left: 6px solid transparent;
+        }
+
+
+        /* ==================================================
+           NOTIFIKASI BERHASIL
+        ================================================== */
+
+        .success-message {
+            color: #1f5c3a;
+
+            border-left-color: #2b7a4b;
+
+            background: #edf7f1;
+        }
+
+
+        /* ==================================================
+           NOTIFIKASI ERROR
+        ================================================== */
+
+        .error-message {
+            color: #7a2e3a;
+
+            border-left-color: #b34a5a;
+
+            background: #fdf0f2;
+        }
+
+
+        .error-message ul {
+            padding-left: 20px;
+
+            margin-top: 4px;
+        }
+
+
+        /* ==================================================
+           RESPONSIVE
+        ================================================== */
+
+        @media (max-width: 600px) {
+
+            .kunjungan-container {
+                padding: 20px 15px;
             }
+
+
+            .title {
+                gap: 12px;
+
+                margin-bottom: 20px;
+            }
+
+
+            .title h1 {
+                font-size: 20px;
+            }
+
+
+            .title i {
+                font-size: 40px;
+            }
+
+
+            .form-box {
+                width: 100%;
+
+                padding: 20px;
+
+                border-radius: 18px;
+            }
+
+
+            .success-message,
+            .error-message {
+                width: 100%;
+            }
+
         }
-    });
-    
-    // Beri tahu user
-    tampilPesan('Menampilkan ' + data.label, 'info');
-}
 
-// ============================================
-// FUNGSI GANTI MINGGU
-// ============================================
+    </style>
 
-function gantiMinggu(nilai) {
-    buatGrafik(nilai);
-}
+</head>
 
-// ============================================
-// FUNGSI DETAIL CARD
-// ============================================
 
-function detailHari() {
-    var sekarang = new Date();
-    var namaHari = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
-    var namaBulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 
-                     'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-    
-    alert('📋 Detail Kunjungan Hari Ini\n\n' +
-          '📅 ' + namaHari[sekarang.getDay()] + ', ' + 
-          sekarang.getDate() + ' ' + namaBulan[sekarang.getMonth()] + ' ' + 
-          sekarang.getFullYear() + '\n' +
-          '👥 Total: 20 Orang\n\n' +
-          '🕐 Rincian Waktu:\n' +
-          '• Pagi (08:00-12:00): 8 orang\n' +
-          '• Siang (12:00-15:00): 7 orang\n' +
-          '• Sore (15:00-17:00): 5 orang');
-}
+<body>
 
-function detailBulan() {
-    var sekarang = new Date();
-    var namaBulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 
-                     'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-    
-    alert('📋 Detail Kunjungan Bulan Ini\n\n' +
-          '📅 ' + namaBulan[sekarang.getMonth()] + ' ' + sekarang.getFullYear() + '\n' +
-          '👥 Total: 95 Orang\n\n' +
-          '📊 Statistik:\n' +
-          '• Rata-rata per hari: 19 orang\n' +
-          '• Hari tersibuk: Kamis (22 orang)\n' +
-          '• Hari sepi: Senin (12 orang)');
-}
+    <div class="kunjungan-container">
 
-// ============================================
-// FUNGSI MENU
-// ============================================
 
-function klikMenu(jenis) {
-    if (jenis === 'arsip') {
-        tampilPesan('📁 Membuka Arsip Kunjungan...', 'info');
-    } else if (jenis === 'profile') {
-        tampilPesan('👤 Membuka Ubah Profile...', 'info');
-    } else if (jenis === 'logout') {
-        if (confirm('Yakin ingin logout?')) {
-            tampilPesan('🚪 Logout berhasil', 'success');
-        }
-    }
-}
+        {{-- ==================================================
+             JUDUL
+        ================================================== --}}
 
-// ============================================
-// FUNGSI PESAN
-// ============================================
+        <div class="title">
 
-function tampilPesan(pesan, jenis) {
-    // Buat elemen pesan
-    var kotakPesan = document.createElement('div');
-    kotakPesan.className = 'alert alert-' + jenis + ' alert-dismissible fade show';
-    kotakPesan.style.cssText = 'position: fixed; top: 20px; right: 20px; z-index: 9999; min-width: 250px;';
-    kotakPesan.innerHTML = pesan + ' <button type="button" class="close" onclick="this.parentElement.remove()">&times;</button>';
-    document.body.appendChild(kotakPesan);
-    
-    // Hapus setelah 2 detik
-    setTimeout(function() {
-        if (kotakPesan.parentNode) {
-            kotakPesan.remove();
-        }
-    }, 2000);
-}
-</script>
-@endpush
+            <h1>
+                Kunjungan
+            </h1>
+
+
+            <i class="fa-solid fa-book-open"></i>
+
+
+            <h1>
+                Perpustakaan
+            </h1>
+
+        </div>
+
+
+        {{-- ==================================================
+             FORM BOX
+        ================================================== --}}
+
+        <div class="form-box">
+
+
+            {{-- ==================================================
+                 PESAN BERHASIL
+            ================================================== --}}
+
+            @if (session('success'))
+
+                <div class="success-message">
+
+                    <i class="fas fa-check-circle"
+                       style="margin-right: 10px;"></i>
+
+                    {{ session('success') }}
+
+                </div>
+
+            @endif
+
+
+            {{-- ==================================================
+                 PESAN ERROR
+            ================================================== --}}
+
+            @if ($errors->any())
+
+                <div class="error-message">
+
+                    <strong>
+
+                        <i class="fas fa-exclamation-triangle"
+                           style="margin-right: 8px;"></i>
+
+                        Data belum lengkap.
+
+                    </strong>
+
+
+                    <ul>
+
+                        @foreach ($errors->all() as $error)
+
+                            <li>
+                                {{ $error }}
+                            </li>
+
+                        @endforeach
+
+                    </ul>
+
+                </div>
+
+            @endif
+
+
+            {{-- ==================================================
+                 FORM
+            ================================================== --}}
+
+            <form action="{{ route('kunjungan.store') }}" method="POST">
+
+                @csrf
+
+
+                {{-- ==================================================
+                     NISN / NIP
+                ================================================== --}}
+
+                <div class="form-group">
+
+                    <label>
+                        NISN/NIP
+                    </label>
+
+
+                    <div class="input-wrapper">
+
+                        <i class="fa-regular fa-id-card"></i>
+
+
+                        <input
+                            type="text"
+                            name="nisn_nip"
+                            value="{{ old('nisn_nip') }}"
+                            placeholder="Masukan NIP/NISN"
+                            autocomplete="off"
+                            required>
+
+                    </div>
+
+                </div>
+
+
+                {{-- ==================================================
+                     NAMA LENGKAP
+                ================================================== --}}
+
+                <div class="form-group">
+
+                    <label>
+                        Nama Lengkap
+                    </label>
+
+
+                    <div class="input-wrapper">
+
+                        <i class="fa-solid fa-user"></i>
+
+
+                        <input
+                            type="text"
+                            name="nama"
+                            value="{{ old('nama') }}"
+                            placeholder="Masukan Nama Lengkap"
+                            autocomplete="off"
+                            required>
+
+                    </div>
+
+                </div>
+
+
+                {{-- ==================================================
+                     KELAS / JABATAN
+                ================================================== --}}
+
+                <div class="form-group">
+
+                    <label>
+                        Kelas/Jabatan
+                    </label>
+
+
+                    <div class="input-wrapper">
+
+                        <i class="fa-solid fa-school"></i>
+
+
+                        <select
+                            id="kelas_jabatan"
+                            name="kelas_jabatan"
+                            required>
+
+                            <option value="">
+                                Pilih Kelas/Jabatan
+                            </option>
+
+
+                            {{-- ==============================
+                                 KELAS X
+                            ============================== --}}
+
+                            <option value="X PPLG 1"
+                                {{ old('kelas_jabatan') == 'X PPLG 1' ? 'selected' : '' }}>
+                                X PPLG 1
+                            </option>
+
+                            <option value="X PPLG 2"
+                                {{ old('kelas_jabatan') == 'X PPLG 2' ? 'selected' : '' }}>
+                                X PPLG 2
+                            </option>
+
+                            <option value="X PPLG 3"
+                                {{ old('kelas_jabatan') == 'X PPLG 3' ? 'selected' : '' }}>
+                                X PPLG 3
+                            </option>
+
+
+                            <option value="X PM 1"
+                                {{ old('kelas_jabatan') == 'X PM 1' ? 'selected' : '' }}>
+                                X PM 1
+                            </option>
+
+                            <option value="X PM 2"
+                                {{ old('kelas_jabatan') == 'X PM 2' ? 'selected' : '' }}>
+                                X PM 2
+                            </option>
+
+                            <option value="X PM 3"
+                                {{ old('kelas_jabatan') == 'X PM 3' ? 'selected' : '' }}>
+                                X PM 3
+                            </option>
+
+
+                            <option value="X TF 1"
+                                {{ old('kelas_jabatan') == 'X TF 1' ? 'selected' : '' }}>
+                                X TF 1
+                            </option>
+
+                            <option value="X TF 2"
+                                {{ old('kelas_jabatan') == 'X TF 2' ? 'selected' : '' }}>
+                                X TF 2
+                            </option>
+
+
+                            <option value="X TO 1"
+                                {{ old('kelas_jabatan') == 'X TO 1' ? 'selected' : '' }}>
+                                X TO 1
+                            </option>
+
+                            <option value="X TO 2"
+                                {{ old('kelas_jabatan') == 'X TO 2' ? 'selected' : '' }}>
+                                X TO 2
+                            </option>
+
+                            <option value="X TO 3"
+                                {{ old('kelas_jabatan') == 'X TO 3' ? 'selected' : '' }}>
+                                X TO 3
+                            </option>
+
+                            <option value="X TO 4"
+                                {{ old('kelas_jabatan') == 'X TO 4' ? 'selected' : '' }}>
+                                X TO 4
+                            </option>
+
+
+                            {{-- ==============================
+                                 KELAS XI
+                            ============================== --}}
+
+                            <option value="XI RPL 1"
+                                {{ old('kelas_jabatan') == 'XI RPL 1' ? 'selected' : '' }}>
+                                XI RPL 1
+                            </option>
+
+                            <option value="XI RPL 2"
+                                {{ old('kelas_jabatan') == 'XI RPL 2' ? 'selected' : '' }}>
+                                XI RPL 2
+                            </option>
+
+                            <option value="XI RPL 3"
+                                {{ old('kelas_jabatan') == 'XI RPL 3' ? 'selected' : '' }}>
+                                XI RPL 3
+                            </option>
+
+                            <option value="XI LPK 3"
+                                {{ old('kelas_jabatan') == 'XI LPK 3' ? 'selected' : '' }}>
+                                XI LPK 3
+                            </option>
+
+                            <option value="XI BD 1"
+                                {{ old('kelas_jabatan') == 'XI BD 1' ? 'selected' : '' }}>
+                                XI BD 1
+                            </option>
+
+                            <option value="XI BD 2"
+                                {{ old('kelas_jabatan') == 'XI BD 2' ? 'selected' : '' }}>
+                                XI BD 2
+                            </option>
+
+                            <option value="XI BR"
+                                {{ old('kelas_jabatan') == 'XI BR' ? 'selected' : '' }}>
+                                XI BR
+                            </option>
+
+                            <option value="XI TSM 1"
+                                {{ old('kelas_jabatan') == 'XI TSM 1' ? 'selected' : '' }}>
+                                XI TSM 1
+                            </option>
+
+                            <option value="XI TSM 2"
+                                {{ old('kelas_jabatan') == 'XI TSM 2' ? 'selected' : '' }}>
+                                XI TSM 2
+                            </option>
+
+                            <option value="XI TSM 3"
+                                {{ old('kelas_jabatan') == 'XI TSM 3' ? 'selected' : '' }}>
+                                XI TSM 3
+                            </option>
+
+                            <option value="XI TSM 4"
+                                {{ old('kelas_jabatan') == 'XI TSM 4' ? 'selected' : '' }}>
+                                XI TSM 4
+                            </option>
+
+
+                            {{-- ==============================
+                                 KELAS XII
+                            ============================== --}}
+
+                            <option value="XII RPL 1"
+                                {{ old('kelas_jabatan') == 'XII RPL 1' ? 'selected' : '' }}>
+                                XII RPL 1
+                            </option>
+
+                            <option value="XII RPL 2"
+                                {{ old('kelas_jabatan') == 'XII RPL 2' ? 'selected' : '' }}>
+                                XII RPL 2
+                            </option>
+
+                            <option value="XII RPL 3"
+                                {{ old('kelas_jabatan') == 'XII RPL 3' ? 'selected' : '' }}>
+                                XII RPL 3
+                            </option>
+
+                            <option value="XII BD 1"
+                                {{ old('kelas_jabatan') == 'XII BD 1' ? 'selected' : '' }}>
+                                XII BD 1
+                            </option>
+
+                            <option value="XII BD 2"
+                                {{ old('kelas_jabatan') == 'XII BD 2' ? 'selected' : '' }}>
+                                XII BD 2
+                            </option>
+
+                            <option value="XII BR"
+                                {{ old('kelas_jabatan') == 'XII BR' ? 'selected' : '' }}>
+                                XII BR
+                            </option>
+
+                            <option value="XII TSM 1"
+                                {{ old('kelas_jabatan') == 'XII TSM 1' ? 'selected' : '' }}>
+                                XII TSM 1
+                            </option>
+
+                            <option value="XII TSM 2"
+                                {{ old('kelas_jabatan') == 'XII TSM 2' ? 'selected' : '' }}>
+                                XII TSM 2
+                            </option>
+
+                            <option value="XII TSM 3"
+                                {{ old('kelas_jabatan') == 'XII TSM 3' ? 'selected' : '' }}>
+                                XII TSM 3
+                            </option>
+
+                            <option value="XII TSM 4"
+                                {{ old('kelas_jabatan') == 'XII TSM 4' ? 'selected' : '' }}>
+                                XII TSM 4
+                            </option>
+
+                            <option value="XII LPK 3"
+                                {{ old('kelas_jabatan') == 'XII LPK 3' ? 'selected' : '' }}>
+                                XII LPK 3
+                            </option>
+
+
+                            {{-- ==============================
+                                 GURU DAN KARYAWAN
+                            ============================== --}}
+
+                            <option value="Guru & Karyawan"
+                                {{ old('kelas_jabatan') == 'Guru & Karyawan' ? 'selected' : '' }}>
+                                Guru & Karyawan
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                {{-- ==================================================
+                     TANGGAL KUNJUNGAN
+                ================================================== --}}
+
+                <div class="form-group">
+
+                    <label>
+                        Tanggal Kunjungan
+                    </label>
+
+
+                    <div class="input-wrapper">
+
+                        <i class="fa-regular fa-calendar"></i>
+
+
+                        <input
+                            type="date"
+                            name="tanggal_kunjungan"
+                            value="{{ old('tanggal_kunjungan') }}"
+                            required>
+
+                    </div>
+
+                </div>
+
+
+                {{-- ==================================================
+                     KEPERLUAN
+                ================================================== --}}
+
+                <div class="form-group">
+
+                    <label>
+                        Keperluan
+                    </label>
+
+
+                    <div class="input-wrapper">
+
+                        <i class="fa-regular fa-clipboard"></i>
+
+
+                        <input
+                            type="text"
+                            name="keperluan"
+                            value="{{ old('keperluan') }}"
+                            placeholder="Masukan Keperluan Kunjungan"
+                            autocomplete="off"
+                            required>
+
+                    </div>
+
+                </div>
+
+
+                {{-- ==================================================
+                     TOMBOL SUBMIT
+                ================================================== --}}
+
+                <button
+                    type="submit"
+                    class="btn-submit">
+
+                    Submit
+
+                </button>
+
+
+            </form>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

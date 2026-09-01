@@ -20,7 +20,7 @@
     
     <style>
     #accordionSidebar {
-        background-color: #f15c9a !important;
+        background-color: #e479a5 !important;
         background-image: none !important;
     }
     </style>
