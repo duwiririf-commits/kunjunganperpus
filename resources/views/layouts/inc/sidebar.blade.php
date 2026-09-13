@@ -67,9 +67,19 @@
             <i class="fas fa-fw fa-archive"></i>
 
             <span>Arsip Kunjungan</span>
-
         </a>
+    </li>
 
+    <!-- PROFILE -->
+
+    <li
+        class="nav-item {{ request()->routeIs('admin.profile.*') ? 'active' : '' }}">
+         <a
+            class="nav-link"
+            href="{{ route('admin.profile.edit') }}">
+            <i class="fas fa-user-circle"></i>
+            <span>Ubah Profile</span>
+        </a>
     </li>
 
 

@@ -6,23 +6,20 @@
 
 <style>
 
-    /* =========================
-       RESET
-    ========================= */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
 
     html,
     body {
-        margin: 0;
-        padding: 0;
         width: 100%;
         min-height: 100%;
         font-family: Arial, sans-serif;
     }
 
-
-    /* =========================
-       BACKGROUND
-    ========================= */
 
     .login-page {
         width: 100%;
@@ -31,25 +28,20 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        justify-content: center;
 
-        background: #dfb4c8;
+        background: #caa9b7;
 
-        padding: 25px 20px;
-
-        box-sizing: border-box;
+        padding: 35px;
     }
 
-
-    /* =========================
-       JUDUL
-    ========================= */
 
     .brand {
         display: flex;
         justify-content: center;
         align-items: center;
 
-        gap: 25px;
+        gap: 28px;
 
         margin-bottom: 20px;
     }
@@ -58,72 +50,62 @@
     .brand-title {
         margin: 0;
 
-        font-size: 32px;
+        font-size: 30px;
         font-weight: bold;
+        letter-spacing: 1px;
 
-        color: #ffffff;
+        color: #202124;
     }
 
 
     .brand-icon {
-        font-size: 65px;
+        font-size: 60px;
 
-        color: #ffffff;
+        color: #1d344b;
 
         line-height: 1;
     }
 
 
-    /* =========================
-       CARD LOGIN
-    ========================= */
-
     .login-card {
-        width: 100%;
-        max-width: 650px;
+        width: 560px;
 
-        background: #ffffff;
+        background: #e5e1d4;
 
-        padding: 25px 55px 25px;
+        padding: 30px 65px;
 
-        border-radius: 35px;
+        border-radius: 25px;
 
         box-sizing: border-box;
-
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
     }
 
-
-    /* =========================
-       HEADER LOGIN
-    ========================= */
 
     .login-header {
         display: flex;
         justify-content: center;
         align-items: center;
 
-        gap: 22px;
+        gap: 20px;
 
-        margin-bottom: 22px;
+        margin-bottom: 25px;
     }
 
 
     .login-user-icon {
-        width: 75px;
-        height: 75px;
+        width: 70px;
+        height: 70px;
 
         border-radius: 50%;
 
-        background: #d75b8f;
+        background: #202124;
 
         display: flex;
         justify-content: center;
         align-items: center;
 
-        color: #ffffff;
+        color: #e5e1d4;
 
-        font-size: 32px;
+        font-size: 30px;
 
         flex-shrink: 0;
     }
@@ -132,49 +114,42 @@
     .login-title {
         margin: 0;
 
-        font-size: 32px;
+        font-size: 30px;
         font-weight: bold;
 
-        color: #d75b8f;
+        color: #202124;
     }
 
 
-    /* =========================
-       FORM GROUP
-    ========================= */
-
     .login-form-group {
-        margin-bottom: 16px;
+        margin-bottom: 15px;
     }
 
 
     .login-form-group label {
         display: block;
 
-        margin-bottom: 7px;
+        margin-bottom: 5px;
 
-        font-size: 21px;
+        font-size: 20px;
         font-weight: bold;
 
-        color: #20252c;
+        color: #25272b;
     }
 
 
-    /* =========================
-       INPUT
-    ========================= */
-
     .login-input-box {
         width: 100%;
-        height: 58px;
+        height: 45px;
 
         display: flex;
         align-items: center;
 
-        background: #ffffff;
+        background: #e4e2d8;
 
-        border: 1px solid #777;
-        border-radius: 15px;
+        border: 1.5px solid #d28ca8;
+
+        border-radius: 12px;
 
         box-sizing: border-box;
 
@@ -183,16 +158,19 @@
 
 
     .login-input-icon {
-        width: 65px;
-        min-width: 65px;
+        width: 55px;
+        min-width: 55px;
+        height: 100%;
 
         display: flex;
         justify-content: center;
         align-items: center;
 
-        font-size: 25px;
+        font-size: 20px;
 
-        color: #d75b8f;
+        color: #d28ca8;
+
+        background: transparent;
 
         pointer-events: none;
     }
@@ -209,194 +187,227 @@
 
         background: transparent !important;
 
-        padding: 0 15px;
+        padding: 0 15px 0 0;
 
-        font-size: 19px;
+        font-size: 15px;
+        font-weight: bold;
 
-        color: #26333f;
+        color: #25272b;
 
         box-shadow: none !important;
+    }
 
-        pointer-events: auto !important;
+
+    .login-input::placeholder {
+        color: #858990;
+
+        opacity: 1;
     }
 
 
     .login-input:focus {
+        border: none !important;
+
         outline: none !important;
+
+        background: transparent !important;
+
         box-shadow: none !important;
     }
 
 
     .login-input-box:focus-within {
-        border: 2px solid #d75b8f;
+        border-color: #dd81a6;
+
+        background: #e4e2d8;
     }
 
 
-    /* =========================
-       INGAT SAYA
-    ========================= */
+    /* ==================================================
+       TOMBOL LIHAT PASSWORD
+    ================================================== */
+
+    .password-toggle {
+        width: 45px;
+        min-width: 45px;
+        height: 100%;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border: none;
+
+        background: transparent;
+
+        color: #777777;
+
+        font-size: 17px;
+
+        cursor: pointer;
+
+        padding: 0;
+    }
+
+
+    .password-toggle:hover {
+        color: #d28ca8;
+    }
+
+
+    /* MENGHILANGKAN WARNA BAWAAN AUTOFILL CHROME */
+
+    .login-input:-webkit-autofill,
+    .login-input:-webkit-autofill:hover,
+    .login-input:-webkit-autofill:focus,
+    .login-input:-webkit-autofill:active {
+
+        -webkit-box-shadow:
+            0 0 0 1000px #e4e2d8 inset !important;
+
+        box-shadow:
+            0 0 0 1000px #e4e2d8 inset !important;
+
+        -webkit-text-fill-color: #25272b !important;
+
+        caret-color: #25272b !important;
+
+        background-color: #e4e2d8 !important;
+
+        transition:
+            background-color
+            5000s
+            ease-in-out
+            0s;
+    }
+
+
+    /* INGAT SAYA */
 
     .remember-group {
         display: flex;
         align-items: center;
 
-        gap: 12px;
+        gap: 10px;
 
-        margin-top: 3px;
+        margin-top: 5px;
+
         margin-bottom: 18px;
     }
 
 
     .remember-group input {
-        width: 22px;
-        height: 22px;
+        width: 20px;
+        height: 20px;
 
         margin: 0;
 
         cursor: pointer;
 
-        accent-color: #d75b8f;
+        accent-color: #bd7894;
     }
 
 
     .remember-group label {
         margin: 0;
 
-        font-size: 18px;
+        font-size: 17px;
 
-        color: #59616b;
+        color: #25272b;
 
         cursor: pointer;
     }
 
 
-    /* =========================
-       BUTTON LOGIN
-    ========================= */
+    /* BUTTON LOGIN */
 
     .btn-login {
         width: 100%;
-        height: 55px;
+        height: 48px;
 
         border: none;
 
-        border-radius: 17px;
+        border-radius: 15px;
 
-        background: #dc76a0;
+        background: #bd7894;
 
-        color: #ffffff;
+        color: #202124;
 
         font-size: 23px;
+
         font-weight: bold;
+
+        letter-spacing: 1px;
 
         cursor: pointer;
 
-        transition: 0.3s;
+        transition: 0.2s;
     }
 
 
     .btn-login:hover {
-        background: #c44b7d;
+        background: #aa6682;
 
-        color: #ffffff;
+        transform: scale(1.01);
     }
 
 
-    /* =========================
-       ERROR
-    ========================= */
+    /* ERROR */
 
     .invalid-feedback {
         margin-top: 5px;
 
-        font-size: 14px;
+        font-size: 13px;
+
+        color: #d9534f;
     }
 
 
-    /* =========================
-       TABLET
-    ========================= */
+    /* RESPONSIVE */
 
-    @media (max-width: 768px) {
+    @media (max-width: 600px) {
 
         .login-page {
-            padding: 25px 15px;
+            padding: 20px 15px;
         }
 
-        .brand-title {
-            font-size: 25px;
-        }
-
-        .brand-icon {
-            font-size: 52px;
-        }
-
-        .login-card {
-            max-width: 580px;
-
-            padding: 25px 40px;
-
-            border-radius: 30px;
-        }
-
-        .login-title {
-            font-size: 28px;
-        }
-
-    }
-
-
-    /* =========================
-       HP
-    ========================= */
-
-    @media (max-width: 500px) {
-
-        .login-page {
-            padding: 20px 12px;
-        }
 
         .brand {
-            gap: 10px;
+            gap: 12px;
 
             margin-bottom: 20px;
         }
 
+
         .brand-title {
-            font-size: 18px;
+            font-size: 20px;
         }
+
 
         .brand-icon {
-            font-size: 38px;
+            font-size: 40px;
         }
+
 
         .login-card {
+            width: 100%;
+
             padding: 25px 20px;
 
-            border-radius: 25px;
+            border-radius: 20px;
         }
 
-        .login-header {
-            gap: 15px;
-        }
-
-        .login-user-icon {
-            width: 65px;
-            height: 65px;
-
-            font-size: 28px;
-        }
 
         .login-title {
-            font-size: 23px;
+            font-size: 24px;
         }
 
-        .login-form-group label {
-            font-size: 18px;
-        }
 
-        .login-input {
-            font-size: 16px;
+        .login-user-icon {
+            width: 60px;
+            height: 60px;
+
+            font-size: 25px;
         }
 
     }
@@ -407,17 +418,17 @@
 <div class="login-page">
 
 
-    <!-- JUDUL WEBSITE -->
-
     <div class="brand">
 
         <h2 class="brand-title">
             Kunjungan
         </h2>
 
+
         <div class="brand-icon">
             <i class="fas fa-book-open"></i>
         </div>
+
 
         <h2 class="brand-title">
             Perpustakaan
@@ -426,18 +437,15 @@
     </div>
 
 
-    <!-- CARD LOGIN -->
-
     <div class="login-card">
 
-
-        <!-- HEADER LOGIN -->
 
         <div class="login-header">
 
             <div class="login-user-icon">
                 <i class="fas fa-user"></i>
             </div>
+
 
             <h1 class="login-title">
                 Login Admin
@@ -446,14 +454,10 @@
         </div>
 
 
-        <!-- FORM LOGIN -->
-
         <form method="POST" action="{{ route('login.process') }}">
 
             @csrf
 
-
-            <!-- EMAIL -->
 
             <div class="login-form-group">
 
@@ -461,11 +465,13 @@
                     Email
                 </label>
 
+
                 <div class="login-input-box">
 
                     <div class="login-input-icon">
                         <i class="far fa-envelope"></i>
                     </div>
+
 
                     <input
                         type="email"
@@ -480,6 +486,7 @@
 
                 </div>
 
+
                 @error('email')
 
                     <div class="invalid-feedback d-block">
@@ -491,19 +498,19 @@
             </div>
 
 
-            <!-- PASSWORD -->
-
             <div class="login-form-group">
 
                 <label for="password">
                     Password
                 </label>
 
+
                 <div class="login-input-box">
 
                     <div class="login-input-icon">
                         <i class="fas fa-lock"></i>
                     </div>
+
 
                     <input
                         type="password"
@@ -515,7 +522,27 @@
                         required
                     >
 
+
+                    {{-- ==================================================
+                         TOMBOL LIHAT PASSWORD
+                    ================================================== --}}
+
+                    <button
+                        type="button"
+                        class="password-toggle"
+                        onclick="togglePassword()"
+                        aria-label="Tampilkan password"
+                    >
+
+                        <i
+                            class="fas fa-eye"
+                            id="password-icon"
+                        ></i>
+
+                    </button>
+
                 </div>
+
 
                 @error('password')
 
@@ -528,8 +555,6 @@
             </div>
 
 
-            <!-- INGAT SAYA -->
-
             <div class="remember-group">
 
                 <input
@@ -539,6 +564,7 @@
                     {{ old('remember') ? 'checked' : '' }}
                 >
 
+
                 <label for="remember">
                     Ingat saya
                 </label>
@@ -546,16 +572,50 @@
             </div>
 
 
-            <!-- BUTTON LOGIN -->
-
             <button type="submit" class="btn-login">
                 Login
             </button>
+
 
         </form>
 
     </div>
 
 </div>
+
+
+<script>
+
+    function togglePassword() {
+
+        const passwordInput =
+            document.getElementById('password');
+
+        const passwordIcon =
+            document.getElementById('password-icon');
+
+
+        if (passwordInput.type === 'password') {
+
+            passwordInput.type = 'text';
+
+            passwordIcon.classList.remove('fa-eye');
+
+            passwordIcon.classList.add('fa-eye-slash');
+
+        } else {
+
+            passwordInput.type = 'password';
+
+            passwordIcon.classList.remove('fa-eye-slash');
+
+            passwordIcon.classList.add('fa-eye');
+
+        }
+
+    }
+
+</script>
+
 
 @endsection

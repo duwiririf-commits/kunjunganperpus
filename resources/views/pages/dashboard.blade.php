@@ -5,6 +5,7 @@
 @section('content')
 
 <style>
+
     /* ==================================================
        DASHBOARD
     ================================================== */
@@ -162,13 +163,15 @@
     .chart-card hr {
         border-top: 1px solid #dfb4c8 !important;
     }
+
 </style>
 
 
 <div class="container-fluid">
 
+
     <!-- ==================================================
-         JUDUL
+         JUDUL DASHBOARD
     ================================================== -->
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -176,6 +179,9 @@
         <h1 class="h3 mb-0 dashboard-title">
             Kunjungan Perpustakaan
         </h1>
+
+
+        <!-- TANGGAL -->
 
         <span class="badge p-2"
               id="currentDateDisplay">
@@ -191,7 +197,9 @@
     <div class="row">
 
 
-        <!-- TOTAL HARI INI -->
+        <!-- ==================================================
+             TOTAL HARI INI
+        ================================================== -->
 
         <div class="col-xl-6 col-md-6 mb-4">
 
@@ -231,7 +239,9 @@
         </div>
 
 
-        <!-- TOTAL MINGGU INI -->
+        <!-- ==================================================
+             TOTAL MINGGU INI
+        ================================================== -->
 
         <div class="col-xl-6 col-md-6 mb-4">
 
@@ -284,7 +294,9 @@
             <div class="card chart-card shadow mb-4">
 
 
-                <!-- HEADER GRAFIK -->
+                <!-- ==================================================
+                     HEADER GRAFIK
+                ================================================== -->
 
                 <div class="card-header py-3">
 
@@ -299,7 +311,9 @@
                 </div>
 
 
-                <!-- BODY GRAFIK -->
+                <!-- ==================================================
+                     BODY GRAFIK
+                ================================================== -->
 
                 <div class="card-body">
 
@@ -314,7 +328,9 @@
                     <hr>
 
 
-                    <!-- KETERANGAN -->
+                    <!-- ==================================================
+                         KETERANGAN GRAFIK
+                    ================================================== -->
 
                     <div class="row">
 
@@ -366,15 +382,19 @@
 
 <script>
 
+
     /* ==================================================
-       TANGGAL DAN JAM
+       TANGGAL
+       TANPA JAM
     ================================================== */
 
     function tampilkanTanggal() {
 
         var now = new Date();
 
+
         var hari = [
+
             'Minggu',
             'Senin',
             'Selasa',
@@ -382,9 +402,12 @@
             'Kamis',
             'Jumat',
             'Sabtu'
+
         ];
 
+
         var bulan = [
+
             'Januari',
             'Februari',
             'Maret',
@@ -397,29 +420,31 @@
             'Oktober',
             'November',
             'Desember'
+
         ];
 
 
         var tanggal =
+
             hari[now.getDay()] +
+
             ', ' +
+
             now.getDate() +
+
             ' ' +
+
             bulan[now.getMonth()] +
+
             ' ' +
+
             now.getFullYear();
 
 
-        var jam =
-            now.getHours().toString().padStart(2, '0') +
-            ':' +
-            now.getMinutes().toString().padStart(2, '0');
-
-
-        document.getElementById('currentDateDisplay').textContent =
-            tanggal + ' | ' + jam + ' WIB';
+        document.getElementById('currentDateDisplay').textContent = tanggal;
 
     }
+
 
 
     /* ==================================================
@@ -428,30 +453,50 @@
 
     $(document).ready(function () {
 
+
+        /* TAMPILKAN TANGGAL */
+
         tampilkanTanggal();
 
 
+
+        /* AMBIL CANVAS */
+
         var ctx = document
+
             .getElementById('chartKunjungan')
+
             .getContext('2d');
 
 
+
+        /* BUAT GRAFIK */
+
         new Chart(ctx, {
+
 
             type: 'line',
 
+
             data: {
+
 
                 labels: @json($labels),
 
+
                 datasets: [{
 
+
                     label: 'Jumlah Kunjungan',
+
 
                     data: @json($dataGrafik),
 
 
-                    /* WARNA PINK */
+
+                    /* ==================================================
+                       WARNA GRAFIK
+                    ================================================== */
 
                     borderColor: '#d18eae',
 
@@ -464,7 +509,10 @@
                     fill: true,
 
 
-                    /* TITIK GRAFIK */
+
+                    /* ==================================================
+                       TITIK GRAFIK
+                    ================================================== */
 
                     pointBackgroundColor: '#d18eae',
 
@@ -483,24 +531,38 @@
             },
 
 
+
+            /* ==================================================
+               OPTIONS
+            ================================================== */
+
             options: {
+
 
                 responsive: true,
 
                 maintainAspectRatio: false,
 
 
+
+                /* ==================================================
+                   SUMBU
+                ================================================== */
+
                 scales: {
+
 
                     y: {
 
                         beginAtZero: true,
+
 
                         ticks: {
 
                             stepSize: 1
 
                         },
+
 
                         grid: {
 
@@ -524,7 +586,13 @@
                 },
 
 
+
+                /* ==================================================
+                   PLUGIN
+                ================================================== */
+
                 plugins: {
+
 
                     legend: {
 
@@ -535,7 +603,9 @@
 
                     tooltip: {
 
+
                         backgroundColor: '#d18eae',
+
 
                         titleFont: {
 
@@ -545,20 +615,25 @@
 
                         },
 
+
                         bodyFont: {
 
                             size: 13
 
                         },
 
+
                         padding: 12,
 
+
                         cornerRadius: 8,
+
 
                         displayColors: false,
 
 
                         callbacks: {
+
 
                             label: function (context) {
 
@@ -572,6 +647,11 @@
 
                 },
 
+
+
+                /* ==================================================
+                   ANIMASI
+                ================================================== */
 
                 animation: {
 
