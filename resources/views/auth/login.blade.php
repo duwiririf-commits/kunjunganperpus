@@ -223,9 +223,7 @@
     }
 
 
-    /* ==================================================
-       TOMBOL LIHAT PASSWORD
-    ================================================== */
+    /* TOMBOL LIHAT PASSWORD */
 
     .password-toggle {
         width: 45px;
@@ -282,43 +280,6 @@
     }
 
 
-    /* INGAT SAYA */
-
-    .remember-group {
-        display: flex;
-        align-items: center;
-
-        gap: 10px;
-
-        margin-top: 5px;
-
-        margin-bottom: 18px;
-    }
-
-
-    .remember-group input {
-        width: 20px;
-        height: 20px;
-
-        margin: 0;
-
-        cursor: pointer;
-
-        accent-color: #bd7894;
-    }
-
-
-    .remember-group label {
-        margin: 0;
-
-        font-size: 17px;
-
-        color: #25272b;
-
-        cursor: pointer;
-    }
-
-
     /* BUTTON LOGIN */
 
     .btn-login {
@@ -334,7 +295,6 @@
         color: #202124;
 
         font-size: 23px;
-
         font-weight: bold;
 
         letter-spacing: 1px;
@@ -523,9 +483,7 @@
                     >
 
 
-                    {{-- ==================================================
-                         TOMBOL LIHAT PASSWORD
-                    ================================================== --}}
+                    {{-- TOMBOL LIHAT PASSWORD --}}
 
                     <button
                         type="button"
@@ -551,23 +509,6 @@
                     </div>
 
                 @enderror
-
-            </div>
-
-
-            <div class="remember-group">
-
-                <input
-                    type="checkbox"
-                    name="remember"
-                    id="remember"
-                    {{ old('remember') ? 'checked' : '' }}
-                >
-
-
-                <label for="remember">
-                    Ingat saya
-                </label>
 
             </div>
 

@@ -5,6 +5,13 @@
                         <i class="fa fa-bars"></i>
                     </button>
 
+                    <!-- Judul Sistem -->
+                    <div class="d-none d-sm-inline-block mr-auto">
+                        <span class="font-weight-bold text-gray-800">
+                            Kunjungan Perpustakaan
+                        </span>
+                    </div>
+
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Nav Item - User Information -->

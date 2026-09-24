@@ -235,6 +235,18 @@
         border-color: #d7b0c1;
     }
 
+    .arsip-table {
+    border-collapse: collapse;
+    }
+
+    .arsip-table thead th {
+        border: 1px solid #c7a0b1;
+    }
+
+    .arsip-table tbody td {
+        border: 1px solid #dddddd;
+    }
+
     /* =========================
        EMPTY DATA
     ========================= */

@@ -8,7 +8,7 @@
             <i class="fas fa-book-open"></i>
         </div>
 
-        <div class="sidebar-brand-text mx-2">
+        <div class="sidebar-brand-text">
             Kunjungan<br>Perpustakaan
         </div>
 
@@ -16,13 +16,10 @@
 
 
     <!-- Divider -->
-    <hr class="sidebar-divider my-4">
+    <hr class="sidebar-divider">
 
 
-    <!-- =========================
-         DASHBOARD
-    ========================== -->
-
+    <!-- Dashboard -->
     <li class="nav-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
 
         <a class="nav-link"
@@ -37,10 +34,7 @@
     </li>
 
 
-    <!-- =========================
-         DATA KUNJUNGAN
-    ========================== -->
-
+    <!-- Data Kunjungan -->
     <li class="nav-item {{ request()->routeIs('admin.kunjungan.*') ? 'active' : '' }}">
 
         <a class="nav-link"
@@ -55,38 +49,37 @@
     </li>
 
 
-    <!-- =========================
-         ARSIP KUNJUNGAN
-    ========================== -->
-
+    <!-- Arsip Kunjungan -->
     <li class="nav-item {{ request()->routeIs('admin.arsip.*') ? 'active' : '' }}">
 
         <a class="nav-link"
            href="{{ route('admin.arsip.index') }}">
 
-            <i class="fas fa-fw fa-archive"></i>
+            <i class="fas fa-fw fa-table"></i>
 
             <span>Arsip Kunjungan</span>
+
         </a>
+
     </li>
 
-    <!-- PROFILE -->
 
-    <li
-        class="nav-item {{ request()->routeIs('admin.profile.*') ? 'active' : '' }}">
-         <a
-            class="nav-link"
-            href="{{ route('admin.profile.edit') }}">
-            <i class="fas fa-user-circle"></i>
+    <!-- Ubah Profile -->
+    <li class="nav-item {{ request()->routeIs('admin.profile.*') ? 'active' : '' }}">
+
+        <a class="nav-link"
+           href="{{ route('admin.profile.edit') }}">
+
+            <i class="fas fa-user"></i>
+
             <span>Ubah Profile</span>
+
         </a>
+
     </li>
 
 
-    <!-- =========================
-         LOGOUT
-    ========================== -->
-
+    <!-- Logout -->
     <li class="nav-item">
 
         <a class="nav-link"
@@ -102,14 +95,11 @@
     </li>
 
 
-    <!-- =========================
-         FORM LOGOUT
-    ========================== -->
-
+    <!-- Form Logout -->
     <form id="logout-form"
           action="{{ route('logout') }}"
           method="POST"
-          class="d-none">
+          style="display: none;">
 
         @csrf
 
@@ -118,9 +108,8 @@
 </ul>
 
 
-<!-- =========================
-     SWEETALERT LOGOUT
-========================= -->
+<!-- SweetAlert -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
 
@@ -161,117 +150,351 @@
 </script>
 
 
-<!-- =========================
-     CSS SIDEBAR
-========================= -->
-
 <style>
 
-    /* =========================
-       BACKGROUND SIDEBAR
-    ========================== */
+    /* SIDEBAR */
 
-    .sidebar {
+    #accordionSidebar {
+
+        background: #dfb4c8 !important;
+
         background-color: #dfb4c8 !important;
+
         background-image: none !important;
+
+        width: 260px !important;
+
+        min-width: 260px !important;
+
+        max-width: 260px !important;
+
+        min-height: 100vh !important;
+
+        margin: 0 !important;
+
+        padding: 0 !important;
+
+        flex-shrink: 0 !important;
+
     }
 
 
-    /* =========================
-       TULISAN MENU
-    ========================== */
+    /* SEMUA BAGIAN SIDEBAR */
 
-    .sidebar .nav-link span {
+    #accordionSidebar,
+    #accordionSidebar * {
+
+        box-sizing: border-box;
+
+    }
+
+
+    /* BRAND */
+
+    #accordionSidebar .sidebar-brand {
+
+        width: 100% !important;
+
+        height: 140px !important;
+
+        margin: 0 !important;
+
+        padding: 15px 10px !important;
+
+        background: #dfb4c8 !important;
+
+        color: #000 !important;
+
+        display: flex !important;
+
+        align-items: center !important;
+
+        justify-content: center !important;
+
+        text-decoration: none !important;
+
+    }
+
+
+    /* ICON BUKU */
+
+    #accordionSidebar .sidebar-brand-icon {
+
+        color: #000 !important;
+
+        font-size: 38px !important;
+
+        width: 45px !important;
+
+        min-width: 45px !important;
+
+        margin-right: 10px !important;
+
+        display: flex !important;
+
+        align-items: center !important;
+
+        justify-content: center !important;
+
+    }
+
+
+    /* NAMA PERPUSTAKAAN */
+
+    #accordionSidebar .sidebar-brand-text {
+
+        color: #000 !important;
+
+        font-size: 19px !important;
+
+        font-weight: 700 !important;
+
+        line-height: 1.25 !important;
+
+        text-align: center !important;
+
+        margin: 0 !important;
+
+        padding: 0 !important;
+
+        white-space: nowrap !important;
+
+    }
+
+
+    /* GARIS PEMBATAS */
+
+    #accordionSidebar .sidebar-divider {
+
+        width: 100% !important;
+
+        height: 1px !important;
+
+        margin: 0 0 18px 0 !important;
+
+        padding: 0 !important;
+
+        border: 0 !important;
+
+        border-top: 2px solid rgba(255, 255, 255, 0.9) !important;
+
+        background: transparent !important;
+
+    }
+
+
+    /* MENU */
+
+    #accordionSidebar .nav-item {
+
+        width: 100% !important;
+
+        margin: 0 0 8px 0 !important;
+
+        padding: 0 !important;
+
+    }
+
+
+    /* LINK MENU */
+
+    #accordionSidebar .nav-link {
+
+        width: 100% !important;
+
+        height: 58px !important;
+
+        margin: 0 !important;
+
+        padding: 0 25px !important;
+
+        display: flex !important;
+
+        align-items: center !important;
+
+        background: #dfb4c8 !important;
+
+        background-color: #dfb4c8 !important;
+
+        color: #000 !important;
+
+        border: none !important;
+
+        border-radius: 0 !important;
+
+        text-decoration: none !important;
+
         font-size: 16px !important;
-        font-weight: 600;
+
+        font-weight: 600 !important;
+
     }
 
 
-    /* =========================
-       JARAK ANTAR MENU
-    ========================== */
+    /* ICON MENU */
 
-    .sidebar .nav-item {
-        margin-bottom: 8px;
-    }
+    #accordionSidebar .nav-link i {
 
+        width: 32px !important;
 
-    /* =========================
-       ICON
-    ========================== */
+        min-width: 32px !important;
 
-    .sidebar .nav-link i {
-        margin-right: 8px;
-        font-size: 18px;
-    }
+        margin-right: 15px !important;
 
-
-    /* =========================
-       BRAND
-    ========================== */
-
-    .sidebar .sidebar-brand-text {
-    color: #000 !important;
-    font-size: 17px !important;
-    padding-top: 12px;
-    line-height: 1.4;
-    font-weight: 700;
-    }
-
-
-    /* =========================
-       MENU BIASA
-    ========================== */
-
-    .sidebar .nav-item .nav-link {
         color: #000 !important;
+
+        font-size: 20px !important;
+
+        text-align: center !important;
+
+    }
+
+
+    /* TULISAN MENU */
+
+    #accordionSidebar .nav-link span {
+
+        color: #000 !important;
+
+        font-size: 16px !important;
+
+        font-weight: 600 !important;
+
+        white-space: nowrap !important;
+
+    }
+
+
+    /* MENU AKTIF */
+
+    #accordionSidebar .nav-item.active > .nav-link {
+
+        background: #d18eae !important;
+
+        background-color: #d18eae !important;
+
+        color: #000 !important;
+
         border-radius: 0 !important;
-        padding: 12px 15px !important;
+
     }
 
 
-    /* =========================
-       ICON MENU BIASA
-    ========================== */
+    /* ICON MENU AKTIF */
 
-    .sidebar .nav-item .nav-link i {
+    #accordionSidebar .nav-item.active > .nav-link i {
+
         color: #000 !important;
+
     }
 
 
-    /* =========================
-       MENU AKTIF
-       WARNA PINK LEBIH TUA
-    ========================== */
+    /* TULISAN MENU AKTIF */
 
-    .sidebar .nav-item.active > .nav-link {
-        background-color: #e888b7 !important;
+    #accordionSidebar .nav-item.active > .nav-link span {
+
         color: #000 !important;
-        border-radius: 0 !important;
+
     }
 
 
-    /* =========================
-       ICON MENU AKTIF
-    ========================== */
+    /* HOVER */
 
-    .sidebar .nav-item.active > .nav-link i {
+    #accordionSidebar .nav-item:not(.active) > .nav-link:hover {
+
+        background: #d18eae !important;
+
+        background-color: #d18eae !important;
+
         color: #000 !important;
+
     }
 
 
-    /* =========================
-       HOVER
-    ========================== */
+    /* ICON HOVER */
 
-    .sidebar .nav-item:not(.active) > .nav-link:hover {
-        background-color: rgba(232, 136, 183, 0.45) !important;
+    #accordionSidebar .nav-item:not(.active) > .nav-link:hover i {
+
         color: #000 !important;
+
     }
 
 
-    .sidebar .nav-item:not(.active) > .nav-link:hover i {
+    /* TULISAN HOVER */
+
+    #accordionSidebar .nav-item:not(.active) > .nav-link:hover span {
+
         color: #000 !important;
+
+    }
+
+
+    /* HAPUS EFEK BAWAAN */
+
+    #accordionSidebar .nav-link::before,
+    #accordionSidebar .nav-link::after,
+    #accordionSidebar .nav-item::before,
+    #accordionSidebar .nav-item::after {
+
+        display: none !important;
+
+    }
+
+
+    /* LOGOUT */
+
+    #accordionSidebar .nav-item:last-child .nav-link {
+
+        background: #dfb4c8 !important;
+
+        background-color: #dfb4c8 !important;
+
+        color: #000 !important;
+
+    }
+
+
+    /* LOGOUT HOVER */
+
+    #accordionSidebar .nav-item:last-child .nav-link:hover {
+
+        background: #d18eae !important;
+
+        background-color: #d18eae !important;
+
+        color: #000 !important;
+
+    }
+
+
+    /* RESPONSIVE */
+
+    @media (max-width: 768px) {
+
+        #accordionSidebar {
+
+            width: 260px !important;
+
+            min-width: 260px !important;
+
+            max-width: 260px !important;
+
+        }
+
+
+        #accordionSidebar .sidebar-brand-text {
+
+            font-size: 17px !important;
+
+        }
+
+
+        #accordionSidebar .sidebar-brand-icon {
+
+            font-size: 34px !important;
+
+        }
+
     }
 
 </style>

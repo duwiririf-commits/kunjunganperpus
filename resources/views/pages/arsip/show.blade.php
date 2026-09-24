@@ -8,10 +8,16 @@
 
     {{-- Breadcrumb --}}
     <div class="mb-4">
+
         <small class="font-weight-bold text-secondary">
-            <i class="fas fa-chevron-right text-pink" style="font-size: 10px;"></i>
+
+            <i class="fas fa-chevron-right text-pink"
+               style="font-size: 10px;"></i>
+
             Arsip Kunjungan &gt; Detail Arsip Kunjungan
+
         </small>
+
     </div>
 
 
@@ -34,17 +40,23 @@
 
             </div>
 
+
             <div>
 
                 <h5 class="m-0 font-weight-bold text-pink">
+
                     Detail Arsip Kunjungan
+
                 </h5>
 
                 <small class="text-muted">
+
                     Informasi arsip kunjungan perpustakaan
+
                 </small>
 
             </div>
+
 
             {{-- Badge Bulan --}}
             <div class="ml-auto">
@@ -73,11 +85,15 @@
                 <div class="detail-row">
 
                     <div class="detail-label">
+
                         Bulan
+
                     </div>
 
                     <div class="detail-titik">
+
                         :
+
                     </div>
 
                     <div class="detail-value">
@@ -97,11 +113,15 @@
                 <div class="detail-row">
 
                     <div class="detail-label">
+
                         Tahun
+
                     </div>
 
                     <div class="detail-titik">
+
                         :
+
                     </div>
 
                     <div class="detail-value">
@@ -121,11 +141,15 @@
                 <div class="detail-row">
 
                     <div class="detail-label">
+
                         Total Pengunjung
+
                     </div>
 
                     <div class="detail-titik">
+
                         :
+
                     </div>
 
                     <div class="detail-value">
@@ -137,7 +161,9 @@
                         </span>
 
                         <small class="text-muted ml-1">
+
                             orang
+
                         </small>
 
                     </div>
@@ -149,11 +175,15 @@
                 <div class="detail-row">
 
                     <div class="detail-label">
+
                         Pengunjung Terbanyak
+
                     </div>
 
                     <div class="detail-titik">
+
                         :
+
                     </div>
 
                     <div class="detail-value">
@@ -222,35 +252,31 @@
 </div>
 
 
-
 @push('styles')
 
 <style>
 
-    /* =========================================
-       WARNA PINK
-    ========================================= */
+    /* WARNA PINK */
 
     .text-pink {
-        color: #e83e8c !important;
+
+        color: #d18eae !important;
+
     }
+
 
     .bg-pink {
-        background-color: #e83e8c !important;
+
+        background-color: #d18eae !important;
+
     }
 
 
-    /* =========================================
-       BUTTON PINK
-    ========================================= */
+    /* BUTTON PINK */
 
     .btn-pink {
 
-        background: linear-gradient(
-            135deg,
-            #e83e8c 0%,
-            #c8236b 100%
-        );
+        background: #d18eae;
 
         color: #fff;
 
@@ -271,13 +297,9 @@
 
         box-shadow:
             0 4px 15px
-            rgba(232, 62, 140, 0.4);
+            rgba(209, 142, 174, 0.4);
 
-        background: linear-gradient(
-            135deg,
-            #c8236b 0%,
-            #a01a55 100%
-        );
+        background: #c77fa2;
 
         color: #fff;
 
@@ -286,9 +308,7 @@
     }
 
 
-    /* =========================================
-       DETAIL ARSIP
-    ========================================= */
+    /* DETAIL ARSIP */
 
     .detail-arsip {
 
@@ -379,9 +399,7 @@
     }
 
 
-    /* =========================================
-       CARD
-    ========================================= */
+    /* CARD */
 
     .card {
 
@@ -394,7 +412,7 @@
             rgba(58, 59, 69, 0.15) !important;
 
         border-left:
-            4px solid #e83e8c !important;
+            4px solid #d18eae !important;
 
     }
 
@@ -419,18 +437,11 @@
     }
 
 
-    /* =========================================
-       BADGE
-    ========================================= */
+    /* BADGE */
 
     .badge-pink {
 
-        background:
-            linear-gradient(
-                135deg,
-                #e83e8c 0%,
-                #c8236b 100%
-            );
+        background: #d18eae;
 
         font-weight: 600;
 
@@ -443,9 +454,7 @@
     }
 
 
-    /* =========================================
-       RESPONSIVE
-    ========================================= */
+    /* RESPONSIVE */
 
     @media (max-width: 576px) {
 

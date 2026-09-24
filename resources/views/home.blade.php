@@ -492,7 +492,7 @@
                             <option value="">Pilih Kelas/Jabatan</option>
                             <option value="X PPLG 1" {{ old('kelas_jabatan') == 'X PPLG 1' ? 'selected' : '' }}>X PPLG 1</option>
                             <option value="X PPLG 2"{{ old('kelas_jabatan') == 'X PPLG 2' ? 'selected' : '' }}>X PPLG 2</option>
-                            <option value="X PPLG 3"{{ old('kelas_jabatan') == 'X PPLG 3' ? 'selected' : '' }}>X PPLG </option>
+                            <option value="X PPLG 3"{{ old('kelas_jabatan') == 'X PPLG 3' ? 'selected' : '' }}>X PPLG 3</option>
                             <option value="X PM 1"{{ old('kelas_jabatan') == 'X PM 1' ? 'selected' : '' }}>X PM 1</option>
                             <option value="X PM 2"{{ old('kelas_jabatan') == 'X PM 2' ? 'selected' : '' }}>X PM 2</option>
                             <option value="X PM 3"{{ old('kelas_jabatan') == 'X PM 3' ? 'selected' : '' }}>X PM 3</option>
