@@ -1,33 +1,19 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Kunjungan Perpustakaan</title>
 
     <!-- Font Awesome -->
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
-
-        /* ==================================================
-           RESET
-        ================================================== */
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
-
-        /* ==================================================
-           BODY
-        ================================================== */
 
         body {
             font-family: Arial, sans-serif;
@@ -37,11 +23,6 @@
             justify-content: center;
             align-items: center;
         }
-
-
-        /* ==================================================
-           CONTAINER
-        ================================================== */
 
         .kunjungan-container {
             width: 100%;
@@ -54,11 +35,7 @@
             padding: 35px;
         }
 
-
-        /* ==================================================
-           JUDUL
-        ================================================== */
-
+        /* judul */
         .title {
             display: flex;
             align-items: center;
@@ -67,7 +44,6 @@
             margin-bottom: 20px;
         }
 
-
         .title h1 {
             font-size: 30px;
             font-weight: bold;
@@ -75,17 +51,12 @@
             color: #202124;
         }
 
-
         .title i {
             font-size: 60px;
             color: #1d344b;
         }
 
-
-        /* ==================================================
-           FORM BOX
-        ================================================== */
-
+        /* kotak form */
         .form-box {
             width: 560px;
             background: #e5e1d4;
@@ -93,15 +64,9 @@
             border-radius: 20px;
         }
 
-
-        /* ==================================================
-           FORM GROUP
-        ================================================== */
-
         .form-group {
             margin-bottom: 10px;
         }
-
 
         .form-group label {
             display: block;
@@ -111,16 +76,10 @@
             margin-bottom: 5px;
         }
 
-
-        /* ==================================================
-           INPUT WRAPPER
-        ================================================== */
-
         .input-wrapper {
             position: relative;
             width: 100%;
         }
-
 
         .input-wrapper i {
             position: absolute;
@@ -131,11 +90,6 @@
             font-size: 20px;
             z-index: 2;
         }
-
-
-        /* ==================================================
-           INPUT
-        ================================================== */
 
         .form-group input {
             width: 100%;
@@ -153,40 +107,28 @@
             appearance: none;
         }
 
-
         .form-group input::placeholder {
             color: #858990;
             opacity: 1;
         }
 
-
-        /* ==================================================
-           AUTOFILL
-        ================================================== */
-
+        /* biar autofill gak ngubah warna */
         .form-group input:-webkit-autofill,
         .form-group input:-webkit-autofill:hover,
         .form-group input:-webkit-autofill:focus,
         .form-group input:-webkit-autofill:active {
-
-            -webkit-box-shadow:
-                0 0 0 1000px #e4e2d8 inset !important;
+            -webkit-box-shadow: 0 0 0 1000px #e4e2d8 inset !important;
             -webkit-text-fill-color: #25272b !important;
             caret-color: #25272b;
             transition: background-color 9999s ease-out 0s;
         }
-
 
         .form-group input:focus {
             border-color: #c7839e;
             background: #e4e2d8;
         }
 
-
-        /* ==================================================
-           SELECT KELAS / JABATAN
-        ================================================== */
-
+        /* dropdown kelas/jabatan */
         .form-group select {
             width: 100%;
             height: 42px;
@@ -203,12 +145,10 @@
             appearance: auto;
         }
 
-
         .form-group select:focus {
             border-color: #c7839e;
             background: #e4e2d8;
         }
-
 
         .form-group select option {
             background: #e4e2d8;
@@ -216,11 +156,7 @@
             font-weight: bold;
         }
 
-
-        /* ==================================================
-           TOMBOL SUBMIT
-        ================================================== */
-
+        /* tombol submit */
         .btn-submit {
             width: 100%;
             height: 48px;
@@ -236,17 +172,12 @@
             transition: 0.2s;
         }
 
-
         .btn-submit:hover {
             background: #aa6682;
             transform: scale(1.01);
         }
 
-
-        /* ==================================================
-           NOTIFIKASI
-        ================================================== */
-
+        /* notif */
         .success-message,
         .error-message {
             width: 100%;
@@ -259,21 +190,11 @@
             border-left: 6px solid transparent;
         }
 
-
-        /* ==================================================
-           NOTIFIKASI BERHASIL
-        ================================================== */
-
         .success-message {
             color: #1f5c3a;
             border-left-color: #2b7a4b;
             background: #edf7f1;
         }
-
-
-        /* ==================================================
-           NOTIFIKASI ERROR
-        ================================================== */
 
         .error-message {
             color: #7a2e3a;
@@ -281,39 +202,29 @@
             background: #fdf0f2;
         }
 
-
         .error-message ul {
             padding-left: 20px;
             margin-top: 4px;
         }
 
-
-        /* ==================================================
-           RESPONSIVE
-        ================================================== */
-
+        /* responsive */
         @media (max-width: 600px) {
-
             .kunjungan-container {
                 padding: 20px 15px;
             }
-
 
             .title {
                 gap: 12px;
                 margin-bottom: 20px;
             }
 
-
             .title h1 {
                 font-size: 20px;
             }
 
-
             .title i {
                 font-size: 40px;
             }
-
 
             .form-box {
                 width: 100%;
@@ -321,120 +232,59 @@
                 border-radius: 18px;
             }
 
-
             .success-message,
             .error-message {
                 width: 100%;
             }
-
         }
-
     </style>
-
 </head>
 
-
 <body>
-
     <div class="kunjungan-container">
 
-
-        {{-- ==================================================
-             JUDUL
-        ================================================== --}}
-
+        {{-- judul halaman --}}
         <div class="title">
             <h1>Kunjungan</h1>
             <i class="fa-solid fa-book-open"></i>
             <h1>Perpustakaan</h1>
         </div>
 
-
-        {{-- ==================================================
-             FORM BOX
-        ================================================== --}}
-
+        {{-- form --}}
         <div class="form-box">
 
-
-            {{-- ==================================================
-                 PESAN BERHASIL
-            ================================================== --}}
-
+            {{-- notif sukses --}}
             @if (session('success'))
-
                 <div class="success-message">
-
-                    <i class="fas fa-check-circle"
-                       style="margin-right: 10px;"></i>
-
+                    <i class="fas fa-check-circle" style="margin-right: 10px;"></i>
                     {{ session('success') }}
-
                 </div>
-
             @endif
 
-
-            {{-- ==================================================
-                 PESAN ERROR
-            ================================================== --}}
-
+            {{-- notif error --}}
             @if ($errors->any())
-
                 <div class="error-message">
-
                     <strong>
-
-                        <i class="fas fa-exclamation-triangle"
-                           style="margin-right: 8px;"></i>
-
+                        <i class="fas fa-exclamation-triangle" style="margin-right: 8px;"></i>
                         Data belum lengkap.
-
                     </strong>
 
-
                     <ul>
-
                         @foreach ($errors->all() as $error)
-
-                            <li>
-                                {{ $error }}
-                            </li>
-
+                            <li>{{ $error }}</li>
                         @endforeach
-
                     </ul>
-
                 </div>
-
             @endif
 
-
-            {{-- ==================================================
-                 FORM
-            ================================================== --}}
-
             <form action="{{ route('kunjungan.store') }}" method="POST">
-
                 @csrf
 
-
-                {{-- ==================================================
-                     NISN / NIP
-                ================================================== --}}
-
+                {{-- NISN / NIP --}}
                 <div class="form-group">
-
-                    <label>
-                        NISN/NIP
-                    </label>
-
-
+                    <label>NISN/NIP</label>
                     <div class="input-wrapper">
-
                         <i class="fa-regular fa-id-card"></i>
-
-
                         <input
                             type="text"
                             name="nisn_nip"
@@ -442,28 +292,14 @@
                             placeholder="Masukan NIP/NISN"
                             autocomplete="off"
                             required>
-
                     </div>
-
                 </div>
 
-
-                {{-- ==================================================
-                     NAMA LENGKAP
-                ================================================== --}}
-
+                {{-- nama lengkap --}}
                 <div class="form-group">
-
-                    <label>
-                        Nama Lengkap
-                    </label>
-
-
+                    <label>Nama Lengkap</label>
                     <div class="input-wrapper">
-
                         <i class="fa-solid fa-user"></i>
-
-
                         <input
                             type="text"
                             name="nama"
@@ -471,24 +307,15 @@
                             placeholder="Masukan Nama Lengkap"
                             autocomplete="off"
                             required>
-
                     </div>
-
                 </div>
 
-
-                {{-- ==================================================
-                     KELAS / JABATAN
-                ================================================== --}}
-
+                {{-- kelas / jabatan --}}
                 <div class="form-group">
                     <label>Kelas/Jabatan</label>
                     <div class="input-wrapper">
                         <i class="fa-solid fa-school"></i>
-                        <select
-                            id="kelas_jabatan"
-                            name="kelas_jabatan"
-                            required>
+                        <select id="kelas_jabatan" name="kelas_jabatan" required>
                             <option value="">Pilih Kelas/Jabatan</option>
                             <option value="X PPLG 1" {{ old('kelas_jabatan') == 'X PPLG 1' ? 'selected' : '' }}>X PPLG 1</option>
                             <option value="X PPLG 2"{{ old('kelas_jabatan') == 'X PPLG 2' ? 'selected' : '' }}>X PPLG 2</option>
@@ -529,50 +356,24 @@
                     </div>
                 </div>
 
-
-                {{-- ==================================================
-                     TANGGAL KUNJUNGAN
-                ================================================== --}}
-
+                {{-- tanggal kunjungan --}}
                 <div class="form-group">
-
-                    <label>
-                        Tanggal Kunjungan
-                    </label>
-
-
+                    <label>Tanggal Kunjungan</label>
                     <div class="input-wrapper">
-
                         <i class="fa-regular fa-calendar"></i>
-
-
                         <input
                             type="date"
                             name="tanggal_kunjungan"
                             value="{{ old('tanggal_kunjungan') }}"
                             required>
-
                     </div>
-
                 </div>
 
-
-                {{-- ==================================================
-                     KEPERLUAN
-                ================================================== --}}
-
+                {{-- keperluan --}}
                 <div class="form-group">
-
-                    <label>
-                        Keperluan
-                    </label>
-
-
+                    <label>Keperluan</label>
                     <div class="input-wrapper">
-
                         <i class="fa-regular fa-clipboard"></i>
-
-
                         <input
                             type="text"
                             name="keperluan"
@@ -580,31 +381,13 @@
                             placeholder="Masukan Keperluan Kunjungan"
                             autocomplete="off"
                             required>
-
                     </div>
-
                 </div>
 
-
-                {{-- ==================================================
-                     TOMBOL SUBMIT
-                ================================================== --}}
-
-                <button
-                    type="submit"
-                    class="btn-submit">
-
-                    Submit
-
-                </button>
-
-
+                {{-- tombol --}}
+                <button type="submit" class="btn-submit">Submit</button>
             </form>
-
         </div>
-
     </div>
-
 </body>
-
 </html>

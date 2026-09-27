@@ -9,34 +9,21 @@ use Illuminate\Validation\Rule;
 
 class ProfileController extends Controller
 {
-    // =========================================
-    // HALAMAN UBAH PROFILE
-    // =========================================
-
+    // halaman ubah profile
     public function edit()
     {
         $user = Auth::user();
 
-        return view(
-            'pages.profile.edit',
-            compact('user')
-        );
+        return view('pages.profile.edit', compact('user'));
     }
 
 
-    // =========================================
-    // SIMPAN PERUBAHAN PROFILE
-    // =========================================
-
+    // simpan perubahan profile
     public function update(Request $request)
     {
         $user = Auth::user();
 
-
-        // =========================================
-        // VALIDASI
-        // =========================================
-
+        // validasi input
         $request->validate(
             [
                 'name' => [
@@ -49,8 +36,7 @@ class ProfileController extends Controller
                     'required',
                     'email',
                     'max:255',
-                    Rule::unique('users', 'email')
-                        ->ignore($user->id),
+                    Rule::unique('users', 'email')->ignore($user->id),
                 ],
 
                 'password' => [
@@ -61,64 +47,28 @@ class ProfileController extends Controller
                 ],
             ],
             [
-                'name.required' =>
-                    'Nama wajib diisi.',
-
-                'email.required' =>
-                    'Email wajib diisi.',
-
-                'email.email' =>
-                    'Format email tidak valid.',
-
-                'email.unique' =>
-                    'Email sudah digunakan.',
-
-                'password.min' =>
-                    'Password minimal 6 karakter.',
-
-                'password.confirmed' =>
-                    'Konfirmasi password tidak sama.',
+                'name.required' => 'Nama wajib diisi.',
+                'email.required' => 'Email wajib diisi.',
+                'email.email' => 'Format email tidak valid.',
+                'email.unique' => 'Email sudah digunakan.',
+                'password.min' => 'Password minimal 6 karakter.',
+                'password.confirmed' => 'Konfirmasi password tidak sama.',
             ]
         );
 
+        // update nama & email
+        $user->name = $request->name;
+        $user->email = $request->email;
 
-        // =========================================
-        // UPDATE NAMA DAN EMAIL
-        // =========================================
-
-        $user->name =
-            $request->name;
-
-        $user->email =
-            $request->email;
-
-
-        // =========================================
-        // UPDATE PASSWORD JIKA DIISI
-        // =========================================
-
+        // update password kalau diisi
         if ($request->filled('password')) {
-
-            $user->password =
-                Hash::make(
-                    $request->password
-                );
-
+            $user->password = Hash::make($request->password);
         }
-
-
-        // =========================================
-        // SIMPAN
-        // =========================================
 
         $user->save();
 
-
         return redirect()
             ->route('admin.profile.edit')
-            ->with(
-                'success',
-                'Profile berhasil diperbarui!'
-            );
+            ->with('success', 'Profile berhasil diperbarui!');
     }
 }

@@ -9,53 +9,23 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        // ==============================
-        // TANGGAL HARI INI
-        // ==============================
-
+        // tanggal hari ini
         $hariIni = Carbon::today();
 
+        // total kunjungan hari ini
+        $totalHariIni = Kunjungan::whereDate('tanggal_kunjungan', $hariIni)->count();
 
-        // ==============================
-        // TOTAL KUNJUNGAN HARI INI
-        // ==============================
+        // awal & akhir minggu (Senin - Minggu)
+        $awalMinggu = $hariIni->copy()->startOfWeek(Carbon::MONDAY);
+        $akhirMinggu = $hariIni->copy()->endOfWeek(Carbon::SUNDAY);
 
-        $totalHariIni = Kunjungan::whereDate(
-            'tanggal_kunjungan',
-            $hariIni
-        )->count();
+        // total kunjungan minggu ini
+        $totalMingguIni = Kunjungan::whereBetween('tanggal_kunjungan', [
+            $awalMinggu->toDateString(),
+            $akhirMinggu->toDateString()
+        ])->count();
 
-
-        // ==============================
-        // AWAL DAN AKHIR MINGGU
-        // SENIN - MINGGU
-        // ==============================
-
-        $awalMinggu = $hariIni->copy()
-            ->startOfWeek(Carbon::MONDAY);
-
-        $akhirMinggu = $hariIni->copy()
-            ->endOfWeek(Carbon::SUNDAY);
-
-
-        // ==============================
-        // TOTAL KUNJUNGAN MINGGU INI
-        // ==============================
-
-        $totalMingguIni = Kunjungan::whereBetween(
-            'tanggal_kunjungan',
-            [
-                $awalMinggu->toDateString(),
-                $akhirMinggu->toDateString()
-            ]
-        )->count();
-
-
-        // ==============================
-        // GRAFIK MINGGU INI
-        // SENIN - MINGGU
-        // ==============================
-
+        // label grafik (Senin - Minggu)
         $labels = [
             'Senin',
             'Selasa',
@@ -66,31 +36,16 @@ class DashboardController extends Controller
             'Minggu'
         ];
 
-
+        // ambil jumlah kunjungan tiap hari dalam seminggu
         $dataGrafik = [];
 
-
-        // ==============================
-        // MENGAMBIL DATA SETIAP HARI
-        // ==============================
-
         for ($i = 0; $i < 7; $i++) {
+            $tanggal = $awalMinggu->copy()->addDays($i);
 
-            $tanggal = $awalMinggu->copy()
-                ->addDays($i);
-
-            $jumlah = Kunjungan::whereDate(
-                'tanggal_kunjungan',
-                $tanggal
-            )->count();
+            $jumlah = Kunjungan::whereDate('tanggal_kunjungan', $tanggal)->count();
 
             $dataGrafik[] = $jumlah;
         }
-
-
-        // ==============================
-        // KIRIM DATA KE DASHBOARD
-        // ==============================
 
         return view('pages.dashboard', compact(
             'totalHariIni',

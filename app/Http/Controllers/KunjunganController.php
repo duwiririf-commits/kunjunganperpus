@@ -11,22 +11,13 @@ class KunjunganController extends Controller
 {
     public function index()
     {
-        // Ambil data kunjungan hanya untuk hari ini
+        // ambil kunjungan hari ini saja
         $kunjungan = Kunjungan::with('pengunjung')
-            ->whereDate(
-                'tanggal_kunjungan',
-                Carbon::today()
-            )
-            ->orderBy(
-                'tanggal_kunjungan',
-                'desc'
-            )
+            ->whereDate('tanggal_kunjungan', Carbon::today())
+            ->orderBy('tanggal_kunjungan', 'desc')
             ->get();
 
-        return view(
-            'pages.kunjungan.index',
-            compact('kunjungan')
-        );
+        return view('pages.kunjungan.index', compact('kunjungan'));
     }
 
 
@@ -38,12 +29,7 @@ class KunjunganController extends Controller
 
     public function store(Request $request)
     {
-        /*
-        |--------------------------------------------------------------------------
-        | VALIDASI
-        |--------------------------------------------------------------------------
-        */
-
+        // validasi input
         $request->validate([
             'nisn_nip' => 'required',
             'nama' => 'required',
@@ -52,90 +38,38 @@ class KunjunganController extends Controller
             'keperluan' => 'required',
         ]);
 
-
-        /*
-        |--------------------------------------------------------------------------
-        | CARI PENGUNJUNG YANG SUDAH ADA
-        |--------------------------------------------------------------------------
-        |
-        | NISN/NIP digunakan sebagai identitas pengunjung.
-        |
-        | Kalau NISN/NIP sudah ada:
-        | -> gunakan data pengunjung yang lama
-        |
-        | Kalau belum ada:
-        | -> buat pengunjung baru
-        |
-        */
-
-        $pengunjung = Pengunjung::where(
-            'nisn_nip',
-            $request->nisn_nip
-        )->first();
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | JIKA PENGUNJUNG BELUM ADA
-        |--------------------------------------------------------------------------
-        */
+        // cari pengunjung berdasarkan NISN/NIP
+        // kalau sudah ada pakai data lama, kalau belum buat baru
+        $pengunjung = Pengunjung::where('nisn_nip', $request->nisn_nip)->first();
 
         if (!$pengunjung) {
-
+            // pengunjung baru
             $pengunjung = Pengunjung::create([
                 'nisn_nip' => $request->nisn_nip,
                 'nama' => $request->nama,
                 'kelas_jabatan' => $request->kelas_jabatan,
             ]);
-
         } else {
-
-            /*
-            |--------------------------------------------------------------------------
-            | JIKA SUDAH ADA
-            |--------------------------------------------------------------------------
-            |
-            | Data orangnya tetap menggunakan ID yang sama.
-            | Nama dan kelas/jabatan bisa diperbarui jika diperlukan.
-            |
-            */
-
+            // pengunjung lama, update nama & kelas/jabatan
+            // ID pengunjung tetap sama
             $pengunjung->update([
                 'nama' => $request->nama,
                 'kelas_jabatan' => $request->kelas_jabatan,
             ]);
         }
 
-
-        /*
-        |--------------------------------------------------------------------------
-        | SIMPAN DATA KUNJUNGAN
-        |--------------------------------------------------------------------------
-        |
-        | Setiap kali datang tetap dibuat 1 data kunjungan baru.
-        | Tetapi id_pengunjung tetap menggunakan ID orang yang sama.
-        |
-        */
-
+        // simpan kunjungan baru
+        // tiap datang tetap bikin 1 baris kunjungan,
+        // tapi id_pengunjung tetap milik orang yang sama
         Kunjungan::create([
             'id_pengunjung' => $pengunjung->id_pengunjung,
             'tanggal_kunjungan' => $request->tanggal_kunjungan,
             'keperluan' => $request->keperluan,
         ]);
 
-
-        /*
-        |--------------------------------------------------------------------------
-        | KEMBALI KE HOME
-        |--------------------------------------------------------------------------
-        */
-
         return redirect()
             ->route('home')
-            ->with(
-                'success',
-                'Data kunjungan berhasil disimpan.'
-            );
+            ->with('success', 'Data kunjungan berhasil disimpan.');
     }
 
 
@@ -144,16 +78,10 @@ class KunjunganController extends Controller
         $id = decrypt($id);
 
         $kunjungan = Kunjungan::with('pengunjung')
-            ->where(
-                'id_kunjungan',
-                $id
-            )
+            ->where('id_kunjungan', $id)
             ->firstOrFail();
 
-        return view(
-            'pages.kunjungan.show',
-            compact('kunjungan')
-        );
+        return view('pages.kunjungan.show', compact('kunjungan'));
     }
 
 
@@ -163,10 +91,8 @@ class KunjunganController extends Controller
     }
 
 
-    public function update(
-        Request $request,
-        string $id
-    ) {
+    public function update(Request $request, string $id)
+    {
         //
     }
 
@@ -179,9 +105,6 @@ class KunjunganController extends Controller
 
         return redirect()
             ->route('admin.kunjungan.index')
-            ->with(
-                'success',
-                'Berhasil Menghapus data dengan ID:' . $id
-            );
+            ->with('success', 'Berhasil Menghapus data dengan ID:' . $id);
     }
 }

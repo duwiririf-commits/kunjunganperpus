@@ -7,9 +7,7 @@ use Illuminate\Http\Request;
 
 class PengunjungController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // tampilkan daftar pengunjung
     public function index()
     {
         $pengunjung = Pengunjung::all();
@@ -17,17 +15,13 @@ class PengunjungController extends Controller
         return view('pages.pengunjung.index', compact('pengunjung'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    // form tambah pengunjung
     public function create()
     {
         return view('pages.pengunjung.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // simpan pengunjung baru
     public function store(Request $request)
     {
         $request->validate([
@@ -46,9 +40,7 @@ class PengunjungController extends Controller
             ->with('success', 'Data pengunjung berhasil disimpan.');
     }
 
-    /**
-     * Display the specified resource.
-     */
+    // tampilkan detail pengunjung
     public function show(string $id)
     {
         $pengunjung = Pengunjung::findOrFail($id);
@@ -56,9 +48,7 @@ class PengunjungController extends Controller
         return view('pages.pengunjung.show', compact('pengunjung'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    // form edit pengunjung
     public function edit(string $id)
     {
         $pengunjung = Pengunjung::findOrFail($id);
@@ -66,9 +56,7 @@ class PengunjungController extends Controller
         return view('pages.pengunjung.edit', compact('pengunjung'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    // update data pengunjung
     public function update(Request $request, string $id)
     {
         $request->validate([
@@ -89,9 +77,7 @@ class PengunjungController extends Controller
             ->with('success', 'Data pengunjung berhasil diperbarui.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    // hapus pengunjung
     public function destroy(string $id)
     {
         $pengunjung = Pengunjung::findOrFail($id);
