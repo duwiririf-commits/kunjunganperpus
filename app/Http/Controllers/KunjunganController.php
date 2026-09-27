@@ -23,7 +23,7 @@ class KunjunganController extends Controller
 
     public function create()
     {
-        return view('pages.kunjungan.create');
+        
     }
 
 

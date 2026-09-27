@@ -5,7 +5,6 @@
 @section('content')
 
 <style>
-
     body,
     #content-wrapper {
         background: #f3f4f8 !important;
@@ -15,10 +14,7 @@
         padding: 25px 20px;
     }
 
-    /* =========================
-       HEADER
-    ========================= */
-
+    /* header */
     .arsip-header {
         display: flex;
         justify-content: space-between;
@@ -34,10 +30,7 @@
         color: #202633;
     }
 
-    /* =========================
-       FILTER
-    ========================= */
-
+    /* filter */
     .arsip-filter {
         display: flex;
         gap: 12px;
@@ -60,10 +53,7 @@
         cursor: pointer;
     }
 
-    /* =========================
-       STATISTIC CARD
-    ========================= */
-
+    /* statistic card */
     .arsip-statistic {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -78,9 +68,7 @@
         padding: 15px 18px;
         background: #ffffff;
         border-radius: 16px;
-        box-shadow:
-            0 3px 12px
-            rgba(0, 0, 0, 0.08);
+        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
     }
 
     .arsip-card-icon {
@@ -113,27 +101,23 @@
         color: #202633;
     }
 
-    /* =========================
-       TABLE
-    ========================= */
-
+    /* table */
     .arsip-table-card {
         overflow: hidden;
         background: #ffffff;
         border-radius: 16px;
-        box-shadow:
-            0 3px 12px
-            rgba(0, 0, 0, 0.08);
+        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
     }
 
     .arsip-table {
         margin: 0;
+        border-collapse: collapse;
     }
 
     .arsip-table thead th {
         padding: 17px 12px;
         background: #d7b0c1;
-        border: none;
+        border: 1px solid #c7a0b1;
         color: #252525;
         font-size: 15px;
         font-weight: 600;
@@ -143,7 +127,7 @@
 
     .arsip-table tbody td {
         padding: 16px 12px;
-        border-color: #eeeeee;
+        border: 1px solid #dddddd;
         color: #252b36;
         font-size: 15px;
         text-align: center;
@@ -151,13 +135,10 @@
     }
 
     .arsip-table tbody tr:hover {
-        background: #fff8fb;
+        background: #ffffff;
     }
 
-    /* =========================
-       ACTION BUTTON
-    ========================= */
-
+    /* tombol aksi */
     .arsip-action-buttons {
         display: flex;
         justify-content: center;
@@ -168,19 +149,14 @@
         display: inline-flex;
         justify-content: center;
         align-items: center;
-
         width: 38px;
         height: 38px;
-
         border: none;
         border-radius: 8px;
-
         background: transparent;
         color: #666;
-
         font-size: 20px;
         text-decoration: none;
-
         transition: 0.2s;
     }
 
@@ -191,20 +167,14 @@
         text-decoration: none;
     }
 
-    /* =========================
-       BOTTOM TABLE
-    ========================= */
-
+    /* footer tabel */
     .arsip-footer {
         display: flex;
         justify-content: space-between;
         align-items: center;
-
         padding: 20px;
-
         font-size: 15px;
         font-weight: 600;
-
         color: #202633;
     }
 
@@ -217,16 +187,12 @@
     .pagination-number {
         min-width: 28px;
         height: 28px;
-
         display: flex;
         justify-content: center;
         align-items: center;
-
         border: 1px solid #ddd;
-
         background: #ffffff;
         color: #333;
-
         text-decoration: none;
     }
 
@@ -235,33 +201,14 @@
         border-color: #d7b0c1;
     }
 
-    .arsip-table {
-    border-collapse: collapse;
-    }
-
-    .arsip-table thead th {
-        border: 1px solid #c7a0b1;
-    }
-
-    .arsip-table tbody td {
-        border: 1px solid #dddddd;
-    }
-
-    /* =========================
-       EMPTY DATA
-    ========================= */
-
+    /* empty data */
     .empty-data {
         padding: 35px !important;
         color: #777 !important;
     }
 
-    /* =========================
-       RESPONSIVE
-    ========================= */
-
+    /* responsive */
     @media (max-width: 768px) {
-
         .arsip-header {
             flex-direction: column;
             align-items: flex-start;
@@ -286,149 +233,76 @@
             align-items: flex-start;
             gap: 15px;
         }
-
     }
-
 </style>
 
 
 <div class="arsip-page">
 
-    {{-- =========================
-       HEADER
-    ========================= --}}
-
+    {{-- header --}}
     <div class="arsip-header">
-
-        <h1 class="arsip-title">
-            Arsip Kunjungan
-        </h1>
+        <h1 class="arsip-title">Arsip Kunjungan</h1>
 
         <div class="arsip-filter">
-
-            {{-- FILTER TAHUN --}}
-
-            <form
-                action="{{ route('admin.arsip.index') }}"
-                method="GET"
-                class="filter-form"
-            >
-
-                <select
-                    name="tahun"
-                    class="filter-select"
-                    onchange="this.form.submit()"
-                >
-
+            {{-- filter tahun --}}
+            <form action="{{ route('admin.arsip.index') }}" method="GET" class="filter-form">
+                <select name="tahun" class="filter-select" onchange="this.form.submit()">
                     @foreach ($tahunTersedia as $itemTahun)
-
-                        <option
-                            value="{{ $itemTahun }}"
-                            {{ $tahun == $itemTahun ? 'selected' : '' }}
-                        >
+                        <option value="{{ $itemTahun }}" {{ $tahun == $itemTahun ? 'selected' : '' }}>
                             📅 {{ $itemTahun }}
                         </option>
-
                     @endforeach
-
                 </select>
-
             </form>
-
         </div>
-
     </div>
 
 
-    {{-- =========================
-       STATISTIK
-    ========================= --}}
-
+    {{-- statistik --}}
     <div class="arsip-statistic">
 
-        {{-- TAHUN --}}
-
+        {{-- tahun --}}
         <div class="arsip-card">
-
             <div class="arsip-card-icon">
                 <i class="fas fa-calendar-alt"></i>
             </div>
-
             <div class="arsip-card-content">
-
-                <div class="arsip-card-label">
-                    Tahun
-                </div>
-
-                <div class="arsip-card-value">
-                    {{ $tahun }}
-                </div>
-
+                <div class="arsip-card-label">Tahun</div>
+                <div class="arsip-card-value">{{ $tahun }}</div>
             </div>
-
         </div>
 
-
-        {{-- TOTAL KUNJUNGAN --}}
-
+        {{-- total kunjungan --}}
         <div class="arsip-card">
-
             <div class="arsip-card-icon">
                 <i class="fas fa-users"></i>
             </div>
-
             <div class="arsip-card-content">
-
-                <div class="arsip-card-label">
-                    Total Kunjungan
-                </div>
-
-                <div class="arsip-card-value">
-                    {{ $totalKunjungan }}
-                </div>
-
+                <div class="arsip-card-label">Total Kunjungan</div>
+                <div class="arsip-card-value">{{ $totalKunjungan }}</div>
             </div>
-
         </div>
 
-
-        {{-- BULAN TERTINGGI --}}
-
+        {{-- bulan tertinggi --}}
         <div class="arsip-card">
-
             <div class="arsip-card-icon">
                 <i class="fas fa-chart-bar"></i>
             </div>
-
             <div class="arsip-card-content">
-
-                <div class="arsip-card-label">
-                    Bulan Tertinggi
-                </div>
-
-                <div class="arsip-card-value">
-                    {{ $bulanTerakhir }}
-                </div>
-
+                <div class="arsip-card-label">Bulan Tertinggi</div>
+                <div class="arsip-card-value">{{ $bulanTerakhir }}</div>
             </div>
-
         </div>
 
     </div>
 
 
-    {{-- =========================
-       TABEL ARSIP
-    ========================= --}}
-
+    {{-- tabel arsip --}}
     <div class="arsip-table-card">
-
         <div class="table-responsive">
 
             <table class="table arsip-table">
-
                 <thead>
-
                     <tr>
                         <th>No</th>
                         <th>Bulan</th>
@@ -436,135 +310,61 @@
                         <th>Total Pengunjung</th>
                         <th>Aksi</th>
                     </tr>
-
                 </thead>
 
-
                 <tbody>
-
                     @forelse ($arsips as $index => $arsip)
-
                         <tr>
-
-                            {{-- NOMOR --}}
-
+                            <td>{{ $index + 1 }}</td>
+                            <td>{{ $namaBulan[$arsip->bulan] ?? '-' }}</td>
+                            <td>{{ $arsip->tahun }}</td>
+                            <td>{{ $arsip->total_pengunjung }}</td>
                             <td>
-                                {{ $index + 1 }}
-                            </td>
-
-
-                            {{-- BULAN --}}
-
-                            <td>
-                                {{ $namaBulan[$arsip->bulan] ?? '-' }}
-                            </td>
-
-
-                            {{-- TAHUN --}}
-
-                            <td>
-                                {{ $arsip->tahun }}
-                            </td>
-
-
-                            {{-- TOTAL PENGUNJUNG --}}
-
-                            <td>
-                                {{ $arsip->total_pengunjung }}
-                            </td>
-
-
-                            {{-- AKSI --}}
-
-                            <td>
-
                                 <div class="arsip-action-buttons">
-
-                                    {{-- DETAIL ARSIP --}}
-
-                                    <a
-                                        href="{{ route('admin.arsip.show', [
-                                            'tahun' => $arsip->tahun,
-                                            'bulan' => $arsip->bulan
-                                        ]) }}"
-                                        class="btn-detail-arsip"
-                                        title="Detail Arsip"
-                                    >
-
+                                    {{-- detail arsip --}}
+                                    <a href="{{ route('admin.arsip.show', [
+                                        'tahun' => $arsip->tahun,
+                                        'bulan' => $arsip->bulan
+                                    ]) }}"
+                                       class="btn-detail-arsip"
+                                       title="Detail Arsip">
                                         <i class="fas fa-file-alt"></i>
-
                                     </a>
-
                                 </div>
-
                             </td>
-
                         </tr>
-
-
                     @empty
-
                         <tr>
-
-                            <td
-                                colspan="5"
-                                class="empty-data text-center"
-                            >
+                            <td colspan="5" class="empty-data text-center">
                                 Belum ada arsip kunjungan.
                             </td>
-
                         </tr>
-
                     @endforelse
-
                 </tbody>
-
             </table>
 
         </div>
-
     </div>
 
 
-    {{-- =========================
-       FOOTER TABEL
-    ========================= --}}
-
+    {{-- footer tabel --}}
     <div class="arsip-footer">
-
         <div>
-
             Showing
-
             @if ($arsips->count() > 0)
-
                 1 to {{ $arsips->count() }}
-
             @else
-
                 0
-
             @endif
-
             of {{ $arsips->count() }} entries
-
         </div>
-
 
         <div class="arsip-pagination">
-
             <span>&lt;</span>
-
-            <span class="pagination-number active">
-                1
-            </span>
-
+            <span class="pagination-number active">1</span>
             <span>&gt;</span>
-
         </div>
-
     </div>
-
 
 </div>
 
